@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
 
 function App() {
+  /**
+   * useState hook
+   * Declare a new state variable, which we'll call "tasks"
+   * We can use "setTasks" to change "tasks" at any time
+   */
+  const [tasks, setTasks] = useState([
+    'Go to dentist',
+    'Go shopping'
+  ]);
+
+  const [input, setInput] = useState('');
+
+  // Run this when enter key is released on input element
+  const addTask = (e) => {
+    // Ignore keyup during IME composition
+    if (e.isComposing || e.keyCode === 229) {
+      return;
+    }
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      // Check if input is not empty
+      if (e.target.value) {
+        // Update state variable "tasks"
+        setTasks([...tasks, e.target.value]);
+        // Clear input
+        setInput('');
+      }
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello World</h1>
+      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} id="outlined-basic" label="Add a task" variant="outlined" />
+      <ul>
+        {tasks.map(task => (
+          <li>{task}</li>
+        ))}
+      </ul>
     </div>
   );
 }
