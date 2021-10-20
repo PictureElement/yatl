@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Task from './Task';
 import TextField from '@mui/material/TextField';
 
 function App() {
@@ -34,10 +35,12 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World</h1>
-      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} id="outlined-basic" label="Add a task" variant="outlined" />
+      {/* MUI component */}
+      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} label="Add a task" variant="outlined" />
       <ul>
         {tasks.map(task => (
-          <li>{task}</li>
+          // Functional component
+          <Task text={task} />
         ))}
       </ul>
     </div>
