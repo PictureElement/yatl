@@ -1,14 +1,285 @@
+@import 'variables';
+@import 'reset';
+@import 'helpers';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(var(--background), 1);
+  color: rgba(var(--on-background), 1);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
 }
 
+.h2 {
+  font-size: 60px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.h3 {
+  font-size: 48px;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.h4 {
+  font-size: 34px;
+  letter-spacing: 0.25px;
+  line-height: 1.2;
+}
+
+.h5 {
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.h6 {
+  font-size: 20px;
+  letter-spacing: 0.15;
+  line-height: 1.2;
+}
+
+input {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  &::placeholder {
+    color: rgba(var(--on-background), var(--a45));
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+}
+
+button {
+  outline: none;
+  &:focus {
+    box-shadow: rgba(3, 206, 164, .75) 0px 0px 0px 2px;
+  }
+}
+
+.hero {
+  background-color: rgba(var(--primary), 1);
+  padding: 68px 0;
+  &__title {
+    color: rgba(var(--on-primary), 1);
+    margin-bottom: 0;
+  }
+}
+
+.theme-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  background-color: rgba(var(--on-primary), var(--a15));
+  &:hover {
+    background-color: rgba(var(--on-primary), var(--a30));
+  }
+  &:active {
+    background-color: rgba(var(--on-primary), var(--a45));
+  }
+  &__icon {
+    &_light {
+      fill: rgba(var(--on-primary), 1);
+    }
+    &_dark {
+      fill: rgba(var(--on-primary), 1);
+    }
+  }
+}
+
+:root {
+  .theme-toggle__icon_dark {
+    display: none;
+  }
+  &[data-theme="dark"] {
+    .theme-toggle {
+      &__icon {
+        &_light {
+          display: none;
+        }
+        &_dark {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.new-task {
+  margin-top: -25px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(var(--on-background), var(--a15));
+  border-radius: 24px;
+  height: 48px;
+  padding-left: 8px;
+  background-color: rgba(var(--background), 1);
+  &__prefix {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // The following 3 properties set a fixed width
+    flex-basis: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 40px;
+    padding: 0;
+    margin-right: 8px;
+  }
+  &__icon {
+    fill: rgba(var(--on-background), 1);
+  }
+  &__infix {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  &__control {
+    padding: 0 16px 0 0;
+    border-radius: 0 24px 24px 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background-color: transparent;
+    color: rgba(var(--on-background), 1);
+  }
+}
+
+.todo-items {
+  margin-top: 48px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(var(--on-background), var(--a15));
+  min-height: 48px;
+  height: auto;
+  padding: 16px 24px 16px 8px;
+  &:first-child {
+    border-top: 1px solid rgba(var(--on-background), var(--a15));
+  }
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // The following 3 properties set a fixed width
+    flex-basis: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 8px;
+    background-color: transparent;
+    &:hover {
+      background-color: rgba(var(--primary), var(--a15));
+    }
+    &:active {
+      background-color: rgba(var(--primary), var(--a30));
+    }
+  }
+  &__icon {
+    fill: rgba(var(--primary), 1);
+    pointer-events: none;
+  }
+  &__title {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.filters {
+  border: 1px solid rgba(var(--on-background), var(--a15));
+  padding: 16px;
+  margin: 48px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+  }
+  &__count {
+    white-space: nowrap;
+  }
+  &__group {
+    position: relative;
+    vertical-align: middle;
+    display: flex;
+    .filters__button {
+      margin: 0 4px;
+      position: relative;
+      flex: 1 1 auto;
+    }
+    @media (max-width: 767.98px) {
+      margin: 16px 0;
+    }
+  }
+  &__button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    &_main {
+      color: rgba(var(--on-background), 1);
+      &:hover {
+        border-color: rgba(var(--on-background), var(--a15));
+      }
+      &:active {
+        border-color: rgba(var(--on-background), var(--a30));
+      }
+    }
+    &_clear {
+      color: #fff;
+      background-color: #dc3545;
+      &:hover {
+        background-color: #bb2d3b;
+      }
+      &:active {
+        background-color: #b02a37;
+      }
+    }
+    &_active {
+      border-color: rgba(var(--on-background), 1) !important;
+      color: rgba(var(--on-background), 1);
+    }
+  }
+}

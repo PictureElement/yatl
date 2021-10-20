@@ -36,14 +36,22 @@ function App() {
 
   return (
     <div className="App">
+      {/* Hero component */}
       <Hero title='Todo' />
+      {/* TextField component */}
       <TextField />
-      <ul>
-        {tasks.map(task => (
-          // Functional component
-          <Task text={task} />
-        ))}
-      </ul>
+      <section>
+        <div class="container">
+          <div>
+            <div class="todo-items" id="todo-items">
+              {tasks.map(task => (
+                // Task component
+                <Task text={task} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
