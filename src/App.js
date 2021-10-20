@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Task from './components/Task';
 import TextField from '@mui/material/TextField';
 import './App.scss';
+import Hero from './components/Hero';
 
 function App() {
   /**
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Hero title='Todo' />
       {/* MUI component */}
       <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} label="Add a task" variant="outlined" />
       <ul>
