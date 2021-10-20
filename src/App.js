@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Task from './Task';
+import Task from './components/Task';
 import TextField from '@mui/material/TextField';
+import './App.scss';
 
 function App() {
   /**
