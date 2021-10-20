@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Task from './components/Task';
-import TextField from '@mui/material/TextField';
+import TextField from './components/TextField';
 import './App.scss';
 import Hero from './components/Hero';
 
@@ -37,8 +37,7 @@ function App() {
   return (
     <div className="App">
       <Hero title='Todo' />
-      {/* MUI component */}
-      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} label="Add a task" variant="outlined" />
+      <TextField />
       <ul>
         {tasks.map(task => (
           // Functional component
