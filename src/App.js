@@ -39,11 +39,11 @@ function App() {
       {/* Hero component */}
       <Hero title='Todo' />
       {/* TextField component */}
-      <TextField />
+      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} label="Add a task" />
       <section>
-        <div class="container">
+        <div className="container">
           <div>
-            <div class="todo-items" id="todo-items">
+            <div className="todo-items" id="todo-items">
               {tasks.map(task => (
                 // Task component
                 <Task text={task} />
