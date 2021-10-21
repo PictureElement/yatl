@@ -10,7 +10,7 @@ function TextField(props) {
                     </div>
                     <div className="input-group__infix">
                         <label htmlFor="task-input" className="input-group__label sr-only">{props.label}</label>
-                        <input value={props.input} id="task-input" className="input-group__control" type="text" placeholder={props.label} />
+                        <input onKeyUp={props.onKeyUp} onChange={props.onChange} value={props.value} id="task-input" className="input-group__control" type="text" placeholder={props.label} />
                     </div>
                 </div>
             </div>

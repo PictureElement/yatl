@@ -12,9 +12,7 @@ function App() {
    * Declare a new state variable, which we'll call "tasks"
    * We can use "setTasks" to change "tasks" at any time
    */
-  const [tasks, setTasks] = useState([
-    // Initial state
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const [input, setInput] = useState('');
 
@@ -44,28 +42,39 @@ function App() {
           ...doc.data()
         });
       });
-      // Set the initial state
+      // Set state variable 'tasks'
       setTasks(tasks);
     });
   }, []); // Array is empty, so the function passed will run on first render only.
 
 
-  // Run this when enter key is released on input element
+  // Run this when a key is released on input element
   const addTask = (e) => {
     // Ignore keyup during IME composition
     if (e.isComposing || e.keyCode === 229) {
       return;
     }
+    // Run this only on 'Enter' key
     if (e.key === 'Enter' || e.keyCode === 13) {
       // Check if input is not empty
       if (e.target.value) {
         // Update state variable "tasks"
-        setTasks([...tasks, e.target.value]);
-        // Clear input
-        setInput('');
+        addDocument();
       }
     }
   };
+
+  // Add document to Firestore
+  const addDocument = async () => {
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, "tasks"), {
+      is_active: true,
+      title: input
+    });
+    console.log("Document written with ID: ", docRef.id);
+    // Clear input
+    setInput('');
+  }
 
   return (
     <div className="App">
@@ -79,7 +88,7 @@ function App() {
             <div className="todo-items" id="todo-items">
               {tasks.map(task => (
                 // Task component
-                <Task text={task.title} />
+                <Task key={task.id} text={task.title} />
               ))}
             </div>
           </div>
