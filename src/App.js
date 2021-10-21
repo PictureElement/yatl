@@ -4,7 +4,7 @@ import TextField from './components/TextField'; // TextField component
 import Task from './components/Task'; // Task component
 import './App.scss'; // Root component styles
 import db from './firebase';
-import { collection, query, addDoc, getDoc, setDoc, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, addDoc, Timestamp, onSnapshot } from "firebase/firestore";
 
 function App() {
   /**
@@ -23,7 +23,8 @@ function App() {
    * ... you can tell React to skip applying an effect if certain values haven’t changed between re-renders by passing an array as an optional second argument to useEffect.
    */
   useEffect(() => {
-    const q = query(collection(db, "tasks"));
+    // Query with descending order by document "created" field
+    const q = query(collection(db, "tasks"), orderBy("created", "desc"));
     // Realtime updates
     onSnapshot(q, (querySnapshot) => {
       const tasks = [];
@@ -69,6 +70,7 @@ function App() {
     // Add a new document with a generated id.
     const docRef = await addDoc(collection(db, "tasks"), {
       is_active: true,
+      created: Timestamp.now(),
       title: input
     });
     console.log("Document written with ID: ", docRef.id);
