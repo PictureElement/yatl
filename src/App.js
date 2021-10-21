@@ -45,6 +45,7 @@ function App() {
       });
       // Set state variable 'tasks'
       setTasks(tasks);
+      console.log(tasks);
     });
   }, []); // Array is empty, so the function passed will run on first render only.
 
@@ -90,7 +91,7 @@ function App() {
             <div className="todo-items" id="todo-items">
               {tasks.map(task => (
                 // Task component
-                <Task key={task.id} text={task.title} />
+                <Task key={task.id} task={task} />
               ))}
             </div>
           </div>
