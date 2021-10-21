@@ -27,6 +27,7 @@ function App() {
     const q = query(collection(db, "tasks"), orderBy("created", "desc"));
     // Realtime updates
     onSnapshot(q, (querySnapshot) => {
+      console.log('snapshot');
       const tasks = [];
       querySnapshot.forEach((doc) => {
         /**
@@ -45,9 +46,8 @@ function App() {
       });
       // Set state variable 'tasks'
       setTasks(tasks);
-      console.log(tasks);
     });
-  }, []); // Array is empty, so the function passed will run on first render only.
+  }, []); // Array is empty, so the function passed will run only on first render.
 
 
   // Run this when a key is released on input element
