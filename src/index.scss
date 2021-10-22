@@ -93,31 +93,11 @@ button {
   &:active {
     background-color: rgba(var(--on-primary), var(--a45));
   }
-  &__icon {
-    &_light {
-      fill: rgba(var(--on-primary), 1);
-    }
-    &_dark {
-      fill: rgba(var(--on-primary), 1);
-    }
+  &__light-icon {
+    fill: rgba(var(--on-primary), 1);
   }
-}
-
-:root {
-  .theme-toggle__icon_dark {
-    display: none;
-  }
-  &[data-theme="dark"] {
-    .theme-toggle {
-      &__icon {
-        &_light {
-          display: none;
-        }
-        &_dark {
-          display: block;
-        }
-      }
-    }
+  &__dark-icon {
+    fill: rgba(var(--on-primary), 1);
   }
 }
 

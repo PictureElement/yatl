@@ -8,10 +8,11 @@
   --a15: 0.15;
   --a30: 0.30;
   --a45: 0.45;
-  &[data-theme="dark"] {
-      --primary: 121, 82, 179;
-      --on-primary: 232, 234, 237;
-      --background: 32, 33, 36;
-      --on-background: 232, 234, 237;
-  }
+}
+
+.theme-dark {
+  --primary: 121, 82, 179;
+  --on-primary: 232, 234, 237;
+  --background: 32, 33, 36;
+  --on-background: 232, 234, 237;
 }
