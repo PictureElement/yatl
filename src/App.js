@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'; // Hooks
 import Hero from './components/Hero'; // Hero component
-import TextField from './components/TextField'; // TextField component
 import Task from './components/Task'; // Task component
 import './App.scss'; // Root component styles
 import db from './firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot } from "firebase/firestore";
+import NewTask from './components/NewTask';
 
 function App() {
   /**
@@ -15,6 +15,8 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   const [input, setInput] = useState('');
+
+  const [filter, setFilter] = useState('all');
 
   /**
    * useEffect hook
@@ -49,7 +51,6 @@ function App() {
     });
   }, []); // Array is empty, so the function passed will run only on first render.
 
-
   // Run this when a key is released on input element
   const addTask = (e) => {
     // Ignore keyup during IME composition
@@ -81,22 +82,44 @@ function App() {
 
   return (
     <div className="App">
-      {/* Hero component */}
       <Hero title='Todo' />
-      {/* TextField component */}
-      <TextField value={input} onKeyUp={addTask} onChange={e => setInput(e.target.value)} label="Add a task" />
+
+      <NewTask />
+
       <section>
         <div className="container">
           <div>
-            <div className="todo-items" id="todo-items">
+            <ul
+              className="todo-items"
+              id="todo-items"
+              aria-labelledby="list-heading"
+            >
               {tasks.map(task => (
                 // Task component
                 <Task key={task.id} task={task} />
               ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div>
+            <div class="todo-items" id="todo-items"></div>
+            <div class="filters">
+              <div id="list-heading" class="filters__count">0 tasks left</div>
+              <div id="filters-group" class="filters__group" role="group" aria-label="Filter options">
+                <button id="filter-all" class="filters__button filters__button_main filters__button_active" type="button">All</button>
+                <button id="filter-active" class="filters__button filters__button_main" type="button">Active</button>
+                <button id="filter-completed" class="filters__button filters__button_main" type="button">Completed</button>
+              </div>
+              <button id="clear-completed" class="filters__button filters__button_clear" type="button">Clear completed</button>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

@@ -158,12 +158,19 @@ button {
 .todo-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid rgba(var(--on-background), var(--a15));
   min-height: 48px;
   height: auto;
   padding: 16px 24px 16px 8px;
   &:first-child {
     border-top: 1px solid rgba(var(--on-background), var(--a15));
+  }
+  &__group-left {
+    display: flex;
+  }
+  &__group-right {
+    display: flex;
   }
   &__button {
     display: flex;
@@ -178,20 +185,38 @@ button {
     border: none;
     cursor: pointer;
     padding: 0;
-    margin-right: 8px;
+    // margin-right: 8px;
     background-color: transparent;
-    &:hover {
-      background-color: rgba(var(--primary), var(--a15));
+    &_delete {
+      margin-right: 8px;
+      background-color: #dc3545;
+      &:hover {
+        background-color: #bb2d3b;
+      }
+      &:active {
+        background-color: #b02a37;
+      }
     }
-    &:active {
-      background-color: rgba(var(--primary), var(--a30));
+    &_edit {
+      background-color: rgba(var(--primary), var(--a15));
+      &:hover {
+        background-color: rgba(var(--primary), var(--a30));
+      }
+      &:active {
+        background-color: rgba(var(--primary), var(--a45));
+      }
     }
   }
   &__icon {
-    fill: rgba(var(--primary), 1);
+    &_delete {
+      fill: #fff;
+    }
+    &_edit {
+      fill: rgba(var(--primary), 1);
+    }
     pointer-events: none;
   }
-  &__title {
+  &__label {
     overflow: hidden;
     display: flex;
     align-items: center;
