@@ -189,12 +189,12 @@ button {
     background-color: transparent;
     &_delete {
       margin-right: 8px;
-      background-color: #dc3545;
+      background-color: rgba(var(--danger), var(--a15));
       &:hover {
-        background-color: #bb2d3b;
+        background-color: rgba(var(--danger), var(--a30));
       }
       &:active {
-        background-color: #b02a37;
+        background-color: rgba(var(--danger), var(--a45));
       }
     }
     &_edit {
@@ -209,7 +209,7 @@ button {
   }
   &__icon {
     &_delete {
-      fill: #fff;
+      fill: rgba(var(--danger), 1);
     }
     &_edit {
       fill: rgba(var(--primary), 1);
@@ -273,13 +273,13 @@ button {
       }
     }
     &_clear {
-      color: #fff;
-      background-color: #dc3545;
+      color: rgba(var(--danger), 1);
+      background-color: rgba(var(--danger), var(--a15));
       &:hover {
-        background-color: #bb2d3b;
+        background-color: rgba(var(--danger), var(--a30));
       }
       &:active {
-        background-color: #b02a37;
+        background-color: rgba(var(--danger), var(--a45));
       }
     }
     &_active {
