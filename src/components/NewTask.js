@@ -4,7 +4,9 @@ function NewTask(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    alert('Submit');
+    if (props.title) {
+      props.addDocument();
+    }
   }
 
   function handleOnChange(e) {

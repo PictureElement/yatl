@@ -50,22 +50,6 @@ function App() {
     });
   }, []); // Array is empty, so the function passed will run only on first render.
 
-  // Run this when a key is released on input element
-  const addTask = (e) => {
-    // Ignore keyup during IME composition
-    if (e.isComposing || e.keyCode === 229) {
-      return;
-    }
-    // Run this only on 'Enter' key
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      // Check if input is not empty
-      if (e.target.value) {
-        // Update state variable "tasks"
-        addDocument();
-      }
-    }
-  };
-
   // Add document to Firestore
   const addDocument = async () => {
     // Add a new document with a generated id.
@@ -91,7 +75,7 @@ function App() {
     <div className="App">
       <Hero title='Todo' />
 
-      <NewTask title={title} updateTitle={updateTitle} />
+      <NewTask title={title} updateTitle={updateTitle} addDocument={addDocument} />
 
       <section>
         <div className="container">
