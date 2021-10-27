@@ -69,7 +69,7 @@ function App() {
 
     // Update task status
     await updateDoc(taskRef, {
-      is_active: task.is_active
+      is_active: !task.is_active
     });
   }
 
