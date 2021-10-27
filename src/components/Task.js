@@ -92,7 +92,7 @@ function Task(props) {
   // Editing template
   const editTemplate = (
     <li className="todo-item">
-      <form class="d-flex justify-content-between align-items-center w-100" onSubmit={handleSubmit}>
+      <form className="d-flex justify-content-between align-items-center w-100" onSubmit={handleSubmit}>
         <div className="todo-item__group-left form-text">
           <label className="visually-hidden" htmlFor={props.task.id}>
             New title for {props.task.title}
