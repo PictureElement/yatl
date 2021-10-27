@@ -5,6 +5,7 @@ import './App.scss'; // Root component styles
 import db from './firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from './components/NewTask';
+import sound from './assets/complete.wav';
 
 function App() {
   /**
@@ -28,13 +29,13 @@ function App() {
         /**
          * 'tasks' is an array of objects
          * each object structure is:
-         * { id: '', title: '', is_active: ''}
+         * { id: '', title: '', completed: ''}
          */
         tasks.push({
           id: doc.id,
           /**
            * Spread operator: pass all key:value pairs from doc.data() object
-           * (e.g. title: 'Haircut', is_active: 'true')
+           * (e.g. title: 'Haircut', completed: 'true')
            */
           ...doc.data()
         });
@@ -48,7 +49,7 @@ function App() {
   const addTask = async (title) => {
     // Add a new document with a generated id.
     const docRef = await addDoc(collection(db, "tasks"), {
-      is_active: true,
+      completed: false,
       created: Timestamp.now(),
       title: title
     });
@@ -77,16 +78,27 @@ function App() {
     // Find task
     const task = tasks.find(task => task.id === id);
 
+    // Play sound only for tasks transitioning from active to completed state
+    if (task.completed === false) {
+      playSound();
+    }
+
     // Update task status
     await updateDoc(taskRef, {
-      is_active: !task.is_active
+      completed: !task.completed
     });
+  }
+
+  // Play sound when task in completed
+  function playSound() {
+    const audio = new Audio(sound);
+    audio.play();
   }
 
   // You should always pass a unique key to anything you render with iteration. 
   const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} editTask={editTask} />);
 
-  const activeTaskCount = tasks.filter(task => task.is_active === true).length;
+  const activeTaskCount = tasks.filter(task => task.completed === false).length;
   const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
   return (

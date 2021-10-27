@@ -27,10 +27,10 @@ function Task(props) {
   let button;
 
   // Select button component based on task state
-  if (props.task.is_active) {
-    button = <ActiveButton onClick={props.updateStatus} />
-  } else {
+  if (props.task.completed) {
     button = <CompletedButton onClick={props.updateStatus} />
+  } else {
+    button = <ActiveButton onClick={props.updateStatus} />
   }
 
   // Viewing template
@@ -41,7 +41,7 @@ function Task(props) {
           className="form-check__input"
           id={props.task.id}
           type="checkbox"
-          defaultChecked={props.task.is_active}
+          defaultChecked={props.task.completed}
           onChange={() => props.updateStatus(props.task.id)}
         />
         <label className="todo-item__label form-check__label" htmlFor={props.task.id}>
