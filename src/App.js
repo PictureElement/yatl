@@ -45,7 +45,7 @@ function App() {
   }, []); // Array is empty, so the function passed will run only on first render.
 
   // Add document to Firestore
-  const addDocument = async (title) => {
+  const addTask = async (title) => {
     // Add a new document with a generated id.
     const docRef = await addDoc(collection(db, "tasks"), {
       is_active: true,
@@ -53,6 +53,11 @@ function App() {
       title: title
     });
     console.log("Document written with ID: ", docRef.id);
+  }
+
+  // Delete document from Firestore
+  const deleteTask = async (id) => {
+    await deleteDoc(doc(db, "tasks", id));
   }
 
   // Update task status
@@ -69,7 +74,7 @@ function App() {
   }
 
   // You should always pass a unique key to anything you render with iteration. 
-  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} />);
+  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} />);
 
   const activeTaskCount = tasks.filter(task => task.is_active === true).length;
   const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
@@ -78,7 +83,7 @@ function App() {
     <div className="App">
       <Hero title='Todo' />
 
-      <NewTask addDocument={addDocument} />
+      <NewTask addTask={addTask} />
 
       <section>
         <div className="container">

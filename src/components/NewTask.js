@@ -9,7 +9,7 @@ function NewTask(props) {
     e.preventDefault();
     // Don't add empty tasks
     if (title) {
-      props.addDocument(title);
+      props.addTask(title);
       // Clear title
       setTitle('');
     }
