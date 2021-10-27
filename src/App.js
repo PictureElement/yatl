@@ -62,15 +62,10 @@ function App() {
     // Find task
     const task = tasks.find(task => task.id === id);
 
-    if (task.is_active) {
-      await updateDoc(taskRef, {
-        is_active: false
-      });
-    } else {
-      await updateDoc(taskRef, {
-        is_active: true
-      });
-    }
+    // Update task status
+    await updateDoc(taskRef, {
+      is_active: task.is_active
+    });
   }
 
   // You should always pass a unique key to anything you render with iteration. 
