@@ -15,10 +15,6 @@ function NewTask(props) {
     }
   }
 
-  function handleOnChange(e) {
-    setTitle(e.target.value);
-  }
-
   return (
     <section className="new-task">
       <div className="container">
@@ -26,7 +22,7 @@ function NewTask(props) {
           <div className="input">
             <label htmlFor="task-input" className="input__label visually-hidden">Add a task</label>
             <input
-              onChange={handleOnChange}
+              onChange={(e) => setTitle(e.target.value)}
               value={title}
               type="text"
               id="task-input"

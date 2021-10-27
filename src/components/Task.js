@@ -6,34 +6,25 @@ import CompletedButton from './CompletedButton';
 
 function Task(props) {
   
-  // Update task status
-  const updateStatus = async () => {
-    const taskRef = doc(db, 'tasks', props.task.id);
-
-    if (props.task.is_active) {
-      await updateDoc(taskRef, {
-        is_active: false
-      });
-    } else {
-      await updateDoc(taskRef, {
-        is_active: true
-      });
-    }
-  }
-
   let button;
 
-  // Select button component based on task active state
+  // Select button component based on task state
   if (props.task.is_active) {
-    button = <ActiveButton onClick={updateStatus} />
+    button = <ActiveButton onClick={props.updateStatus} />
   } else {
-    button = <CompletedButton onClick={updateStatus} />
+    button = <CompletedButton onClick={props.updateStatus} />
   }
 
   return (
     <li className="todo-item">
       <div className="todo-item__group-left form-check">
-        <input className="form-check__input" id={props.task.id} type="checkbox" defaultChecked={props.task.is_active} />
+        <input
+          className="form-check__input"
+          id={props.task.id}
+          type="checkbox"
+          defaultChecked={props.task.is_active}
+          onChange={() => props.updateStatus(props.task.id)}
+        />
         <label className="todo-item__label form-check__label" htmlFor={props.task.id}>
           {props.task.title}
         </label>

@@ -3,7 +3,7 @@ import Hero from './components/Hero'; // Hero component
 import Task from './components/Task'; // Task component
 import './App.scss'; // Root component styles
 import db from './firebase';
-import { collection, query, orderBy, addDoc, Timestamp, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from './components/NewTask';
 
 function App() {
@@ -55,10 +55,29 @@ function App() {
     console.log("Document written with ID: ", docRef.id);
   }
 
-  // You should always pass a unique key to anything you render with iteration. 
-  const taskList = tasks.map(task => <Task key={task.id} task={task} />);
+  // Update task status
+  const updateStatus = async (id) => {
+    const taskRef = doc(db, 'tasks', id);
 
-  const headerCountText = `${(tasks.filter(task => task.is_active === true)).length} ${taskList.length === 1 ? 'task' : 'tasks'} left`;
+    // Find task
+    const task = tasks.find(task => task.id === id);
+
+    if (task.is_active) {
+      await updateDoc(taskRef, {
+        is_active: false
+      });
+    } else {
+      await updateDoc(taskRef, {
+        is_active: true
+      });
+    }
+  }
+
+  // You should always pass a unique key to anything you render with iteration. 
+  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} />);
+
+  const activeTaskCount = tasks.filter(task => task.is_active === true).length;
+  const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
   return (
     <div className="App">
