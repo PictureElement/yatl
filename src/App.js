@@ -14,7 +14,7 @@ function App() {
    */
   const [tasks, setTasks] = useState([]);
 
-  const [input, setInput] = useState('');
+  const [title, setTitle] = useState('');
 
   const [filter, setFilter] = useState('all');
 
@@ -72,11 +72,16 @@ function App() {
     const docRef = await addDoc(collection(db, "tasks"), {
       is_active: true,
       created: Timestamp.now(),
-      title: input
+      title: title
     });
     console.log("Document written with ID: ", docRef.id);
-    // Clear input
-    setInput('');
+    // Clear title
+    setTitle('');
+  }
+
+  // Update title
+  function updateTitle(value) {
+    setTitle(value);
   }
 
   // You should always pass a unique key to anything you render with iteration. 
@@ -86,7 +91,7 @@ function App() {
     <div className="App">
       <Hero title='Todo' />
 
-      <NewTask />
+      <NewTask title={title} updateTitle={updateTitle} />
 
       <section>
         <div className="container">
