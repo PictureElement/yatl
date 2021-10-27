@@ -6,11 +6,27 @@ import CompletedButton from './CompletedButton';
 
 function Task(props) {
 
+  // 'textDecoration' state
+  const [textDecoration, setTextDecoration] = useState('');
+
   // 'isEditing' state
   const [isEditing, setEditing] = useState(false);
 
   // 'newTitle' state
   const [newTitle, setNewTitle] = useState('');
+
+  /**
+   * useEffect hook
+   * The function passed to useEffect will run after every render but ...
+   * ... you can tell React to skip applying an effect if certain values haven’t changed between re-renders by passing an array as an optional second argument to useEffect.
+   */
+  useEffect(() => {
+    if (props.task.completed) {
+      setTextDecoration('line-through');
+    } else {
+      setTextDecoration('');
+    }
+  }, [props.task.completed]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,6 +38,18 @@ function Task(props) {
       // Return to viewing mode
       setEditing(false)
     }
+  }
+
+  function handleOnChange() {
+
+    // Apply a strike-through style to tasks transitioning from active to completed state
+    if (props.task.completed === false) {
+      setTextDecoration('line-through');
+    } else {
+      setTextDecoration('');
+    }
+
+    props.updateStatus(props.task.id);
   }
 
   let button;
@@ -42,9 +70,9 @@ function Task(props) {
           id={props.task.id}
           type="checkbox"
           defaultChecked={props.task.completed}
-          onChange={() => props.updateStatus(props.task.id)}
+          onChange={handleOnChange}
         />
-        <label className="todo-item__label form-check__label" htmlFor={props.task.id}>
+        <label className={`todo-item__label form-check__label ${textDecoration}`} htmlFor={props.task.id}>
           {props.task.title}
         </label>
       </div>
@@ -75,6 +103,7 @@ function Task(props) {
             type="text"
             onChange={(e) => setNewTitle(e.target.value)}
             value={newTitle}
+            autoComplete="off"
           />
         </div>
         <div className="todo-item__group-right">
