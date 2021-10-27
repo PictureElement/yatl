@@ -29,7 +29,6 @@ function App() {
     const q = query(collection(db, "tasks"), orderBy("created", "desc"));
     // Realtime updates
     onSnapshot(q, (querySnapshot) => {
-      console.log('snapshot');
       const tasks = [];
       querySnapshot.forEach((doc) => {
         /**
@@ -80,6 +79,9 @@ function App() {
     setInput('');
   }
 
+  // You should always pass a unique key to anything you render with iteration. 
+  const taskList = tasks.map(task => <Task key={task.id} task={task} />);
+ 
   return (
     <div className="App">
       <Hero title='Todo' />
@@ -94,27 +96,24 @@ function App() {
               id="todo-items"
               aria-labelledby="list-heading"
             >
-              {tasks.map(task => (
-                // Task component
-                <Task key={task.id} task={task} />
-              ))}
+              {taskList}
             </ul>
           </div>
         </div>
       </section>
 
       <section>
-        <div class="container">
+        <div className="container">
           <div>
-            <div class="todo-items" id="todo-items"></div>
-            <div class="filters">
-              <div id="list-heading" class="filters__count">0 tasks left</div>
-              <div id="filters-group" class="filters__group" role="group" aria-label="Filter options">
-                <button id="filter-all" class="filters__button filters__button_main filters__button_active" type="button">All</button>
-                <button id="filter-active" class="filters__button filters__button_main" type="button">Active</button>
-                <button id="filter-completed" class="filters__button filters__button_main" type="button">Completed</button>
+            <div className="todo-items" id="todo-items"></div>
+            <div className="filters">
+              <div id="list-heading" className="filters__count">0 tasks left</div>
+              <div id="filters-group" className="filters__group" role="group" aria-label="Filter options">
+                <button id="filter-all" className="filters__button filters__button_main filters__button_active" type="button">All</button>
+                <button id="filter-active" className="filters__button filters__button_main" type="button">Active</button>
+                <button id="filter-completed" className="filters__button filters__button_main" type="button">Completed</button>
               </div>
-              <button id="clear-completed" class="filters__button filters__button_clear" type="button">Clear completed</button>
+              <button id="clear-completed" className="filters__button filters__button_clear" type="button">Clear completed</button>
             </div>
           </div>
         </div>
