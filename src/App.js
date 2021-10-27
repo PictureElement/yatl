@@ -5,7 +5,7 @@ import './App.scss'; // Root component styles
 import db from './firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from './components/NewTask';
-import sound from './assets/complete.wav';
+import sound from './assets/complete.mp3';
 
 function App() {
   /**
