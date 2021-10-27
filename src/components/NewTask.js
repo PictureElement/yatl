@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function NewTask(props) {
 
+  const [title, setTitle] = useState('');
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (props.title) {
-      props.addDocument();
+    if (title) {
+      props.addDocument(title);
+      // Clear title
+      setTitle('');
     }
   }
 
   function handleOnChange(e) {
-    props.updateTitle(e.target.value);
+    setTitle(e.target.value);
   }
 
   return (
@@ -21,7 +25,7 @@ function NewTask(props) {
             <label htmlFor="task-input" className="input__label visually-hidden">Add a task</label>
             <input
               onChange={handleOnChange}
-              value={props.title}
+              value={title}
               type="text"
               id="task-input"
               className="input__control"

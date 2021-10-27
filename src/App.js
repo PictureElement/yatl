@@ -8,13 +8,10 @@ import NewTask from './components/NewTask';
 
 function App() {
   /**
-   * useState hook
-   * Declare a new state variable, which we'll call "tasks"
-   * We can use "setTasks" to change "tasks" at any time
+   * useState() hook creates a piece of state for a component, and its only parameter determines the initial value of that state.
+   * It returns two things: the state, and a function that can be used to update the state later.
    */
   const [tasks, setTasks] = useState([]);
-
-  const [title, setTitle] = useState('');
 
   const [filter, setFilter] = useState('all');
 
@@ -51,7 +48,7 @@ function App() {
   }, []); // Array is empty, so the function passed will run only on first render.
 
   // Add document to Firestore
-  const addDocument = async () => {
+  const addDocument = async (title) => {
     // Add a new document with a generated id.
     const docRef = await addDoc(collection(db, "tasks"), {
       is_active: true,
@@ -59,13 +56,6 @@ function App() {
       title: title
     });
     console.log("Document written with ID: ", docRef.id);
-    // Clear title
-    setTitle('');
-  }
-
-  // Update title
-  function updateTitle(value) {
-    setTitle(value);
   }
 
   // You should always pass a unique key to anything you render with iteration. 
@@ -75,7 +65,7 @@ function App() {
     <div className="App">
       <Hero title='Todo' />
 
-      <NewTask title={title} updateTitle={updateTitle} addDocument={addDocument} />
+      <NewTask addDocument={addDocument} />
 
       <section>
         <div className="container">
