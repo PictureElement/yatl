@@ -60,6 +60,16 @@ function App() {
     await deleteDoc(doc(db, "tasks", id));
   }
 
+  // Edit task title
+  const editTask = async (id, title) => {
+    const taskRef = doc(db, 'tasks', id);
+
+    // Update task title
+    await updateDoc(taskRef, {
+      title: title
+    });
+  }
+
   // Update task status
   const updateStatus = async (id) => {
     const taskRef = doc(db, 'tasks', id);
@@ -74,7 +84,7 @@ function App() {
   }
 
   // You should always pass a unique key to anything you render with iteration. 
-  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} />);
+  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} editTask={editTask} />);
 
   const activeTaskCount = tasks.filter(task => task.is_active === true).length;
   const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
