@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 
 function NewTask(props) {
 
+  // 'title' state
   const [title, setTitle] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
+    // Don't add empty tasks
     if (title) {
       props.addDocument(title);
       // Clear title

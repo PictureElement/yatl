@@ -12,9 +12,6 @@ function App() {
    * It returns two things: the state, and a function that can be used to update the state later.
    */
   const [tasks, setTasks] = useState([]);
-
-  const [filter, setFilter] = useState('all');
-
   /**
    * useEffect hook
    * This hook lets you perform "side effects". For example, data fetching, setting up a subscription, and manually changing the DOM in React components.
@@ -42,7 +39,7 @@ function App() {
           ...doc.data()
         });
       });
-      // Set state variable 'tasks'
+      // Set 'tasks' state
       setTasks(tasks);
     });
   }, []); // Array is empty, so the function passed will run only on first render.
@@ -60,6 +57,8 @@ function App() {
 
   // You should always pass a unique key to anything you render with iteration. 
   const taskList = tasks.map(task => <Task key={task.id} task={task} />);
+
+  const headerCountText = `${(tasks.filter(task => task.is_active === true)).length} ${taskList.length === 1 ? 'task' : 'tasks'} left`;
  
   return (
     <div className="App">
@@ -69,35 +68,29 @@ function App() {
 
       <section>
         <div className="container">
-          <div>
-            <ul
-              className="todo-items"
-              id="todo-items"
-              aria-labelledby="list-heading"
-            >
-              {taskList}
-            </ul>
+          <div className="header">
+            <div id="header-count" className="header__count">{headerCountText}</div>
+            <div className="header__filters" role="group" aria-label="Filter options">
+              <button className="header__button header__button_filter header__button_active" type="button">All</button>
+              <button className="header__button header__button_filter" type="button">Active</button>
+              <button className="header__button header__button_filter" type="button">Completed</button>
+            </div>
+            <button className="header__button header__button_clear" type="button">Clear completed</button>
           </div>
         </div>
       </section>
 
       <section>
         <div className="container">
-          <div>
-            <div className="todo-items" id="todo-items"></div>
-            <div className="filters">
-              <div id="list-heading" className="filters__count">0 tasks left</div>
-              <div id="filters-group" className="filters__group" role="group" aria-label="Filter options">
-                <button id="filter-all" className="filters__button filters__button_main filters__button_active" type="button">All</button>
-                <button id="filter-active" className="filters__button filters__button_main" type="button">Active</button>
-                <button id="filter-completed" className="filters__button filters__button_main" type="button">Completed</button>
-              </div>
-              <button id="clear-completed" className="filters__button filters__button_clear" type="button">Clear completed</button>
-            </div>
-          </div>
+          <ul
+            className="todo-items"
+            id="todo-items"
+            aria-labelledby="header-count"
+          >
+            {taskList}
+          </ul>
         </div>
       </section>
-
     </div>
   );
 }

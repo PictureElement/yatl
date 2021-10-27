@@ -129,7 +129,7 @@ button {
 }
 
 .todo-items {
-  margin-top: 48px;
+  margin-bottom: 48px;
 }
 
 .todo-item {
@@ -227,7 +227,7 @@ button {
   }
 }
 
-.filters {
+.header {
   border: 1px solid rgba(var(--on-background), var(--a15));
   padding: 16px;
   margin: 48px 0;
@@ -240,15 +240,10 @@ button {
   &__count {
     white-space: nowrap;
   }
-  &__group {
+  &__filters {
     position: relative;
     vertical-align: middle;
     display: flex;
-    .filters__button {
-      margin: 0 4px;
-      position: relative;
-      flex: 1 1 auto;
-    }
     @media (max-width: 767.98px) {
       margin: 16px 0;
     }
@@ -267,7 +262,10 @@ button {
     background-color: transparent;
     border: 1px solid transparent;
     cursor: pointer;
-    &_main {
+    &_filter {
+      margin: 0 4px;
+      position: relative;
+      flex: 1 1 auto;
       color: rgba(var(--on-background), 1);
       &:hover {
         border-color: rgba(var(--on-background), var(--a15));
