@@ -12,15 +12,15 @@
 }
 
 .d-flex {
-  display: flex;
+  display: flex !important;
 }
 
 .justify-content-between {
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 
 .align-items-center {
-  align-items: center;
+  align-items: center !important;
 }
 
 .d-none {
@@ -28,9 +28,19 @@
 }
 
 .container {
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  max-width: 800px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+$spacer: 4px;
+
+.mr-1 {
+  margin-right: $spacer !important;
+}
+
+.mr-2 {
+  margin-right: 2 * $spacer !important;
 }

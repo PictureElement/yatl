@@ -161,10 +161,8 @@ button {
     border: none;
     cursor: pointer;
     padding: 0;
-    // margin-right: 8px;
     background-color: transparent;
-    &_delete {
-      margin-right: 8px;
+    &_danger {
       background-color: rgba(var(--danger), var(--a15));
       &:hover {
         background-color: rgba(var(--danger), var(--a30));
@@ -173,7 +171,7 @@ button {
         background-color: rgba(var(--danger), var(--a45));
       }
     }
-    &_edit {
+    &_primary {
       background-color: rgba(var(--primary), var(--a15));
       &:hover {
         background-color: rgba(var(--primary), var(--a30));
@@ -182,13 +180,25 @@ button {
         background-color: rgba(var(--primary), var(--a45));
       }
     }
+    &_success {
+      background-color: rgba(var(--success), var(--a15));
+      &:hover {
+        background-color: rgba(var(--success), var(--a30));
+      }
+      &:active {
+        background-color: rgba(var(--success), var(--a45));
+      }
+    }
   }
   &__icon {
-    &_delete {
+    &_danger {
       fill: rgba(var(--danger), 1);
     }
-    &_edit {
+    &_primary {
       fill: rgba(var(--primary), 1);
+    }
+    &_success {
+      fill: rgba(var(--success), 1);
     }
     pointer-events: none;
   }
