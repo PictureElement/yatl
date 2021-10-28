@@ -53,7 +53,7 @@ input {
   font-size: 16px;
   letter-spacing: 0.5px;
   &::placeholder {
-    color: rgba(var(--on-background), var(--a45));
+    color: rgba(var(--on-background), var(--a60));
     font-weight: 400;
     font-size: 16px;
     letter-spacing: 0.5px;
@@ -86,12 +86,12 @@ button {
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  background-color: rgba(var(--on-primary), var(--a15));
+  background-color: rgba(var(--on-primary), var(--a30));
   &:hover {
-    background-color: rgba(var(--on-primary), var(--a30));
+    background-color: rgba(var(--on-primary), var(--a45));
   }
   &:active {
-    background-color: rgba(var(--on-primary), var(--a45));
+    background-color: rgba(var(--on-primary), var(--a60));
   }
   &__light-icon {
     fill: rgba(var(--on-primary), 1);
@@ -109,13 +109,13 @@ button {
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid rgba(var(--on-background), var(--a15));
+  border: 1px solid rgba(var(--on-background), var(--a30));
   border-radius: 24px;
   height: 48px;
   background-color: rgba(var(--background), 1);
   &__control {
     padding: 0 16px;
-    border-radius: 0 24px 24px 0;
+    border-radius: 24px;
     font-size: 16px;
     font-weight: 400;
     line-height: 1;
@@ -125,6 +125,9 @@ button {
     outline: none;
     background-color: transparent;
     color: rgba(var(--on-background), 1);
+    &:focus {
+      box-shadow: rgba(3, 206, 164, .75) 0px 0px 0px 2px;
+    }
   }
 }
 
@@ -135,11 +138,11 @@ button {
 .todo-item {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(var(--on-background), var(--a15));
+  border-bottom: 1px solid rgba(var(--on-background), var(--a30));
   height: auto;
   padding: 16px 8px;
   &:first-child {
-    border-top: 1px solid rgba(var(--on-background), var(--a15));
+    border-top: 1px solid rgba(var(--on-background), var(--a30));
   }
   &__group-left {
     display: flex;
@@ -164,30 +167,30 @@ button {
     padding: 0;
     background-color: transparent;
     &_danger {
-      background-color: rgba(var(--danger), var(--a15));
+      background-color: rgba(var(--danger), var(--a30));
       &:hover {
-        background-color: rgba(var(--danger), var(--a30));
+        background-color: rgba(var(--danger), var(--a45));
       }
       &:active {
-        background-color: rgba(var(--danger), var(--a45));
+        background-color: rgba(var(--danger), var(--a60));
       }
     }
     &_primary {
-      background-color: rgba(var(--primary), var(--a15));
+      background-color: rgba(var(--primary), var(--a30));
       &:hover {
-        background-color: rgba(var(--primary), var(--a30));
+        background-color: rgba(var(--primary), var(--a45));
       }
       &:active {
-        background-color: rgba(var(--primary), var(--a45));
+        background-color: rgba(var(--primary), var(--a60));
       }
     }
     &_success {
-      background-color: rgba(var(--success), var(--a15));
+      background-color: rgba(var(--success), var(--a30));
       &:hover {
-        background-color: rgba(var(--success), var(--a30));
+        background-color: rgba(var(--success), var(--a45));
       }
       &:active {
-        background-color: rgba(var(--success), var(--a45));
+        background-color: rgba(var(--success), var(--a60));
       }
     }
   }
@@ -228,6 +231,10 @@ button {
     appearance: none;
     border: 2px solid rgba(var(--primary), 1);
     cursor: pointer;
+    outline: none;
+    &:focus {
+      box-shadow: rgba(3, 206, 164, .75) 0px 0px 0px 2px;
+    }
     &:checked {
       background-color: rgba(var(--primary), 1);
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='18px' viewBox='0 0 24 24' width='18px' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
@@ -245,7 +252,7 @@ button {
     font-size: 16px;
     font-weight: 400;
     line-height: 1;
-    border: 1px solid rgba(var(--on-background), var(--a15));
+    border: 1px solid rgba(var(--on-background), var(--a30));
     width: 100%;
     height: 100%;
     outline: none;
@@ -255,7 +262,7 @@ button {
 }
 
 .header {
-  border: 1px solid rgba(var(--on-background), var(--a15));
+  border: 1px solid rgba(var(--on-background), var(--a30));
   padding: 16px;
   margin: 48px 0;
   display: flex;
@@ -295,20 +302,20 @@ button {
       flex: 1 1 auto;
       color: rgba(var(--on-background), 1);
       &:hover {
-        border-color: rgba(var(--on-background), var(--a15));
+        border-color: rgba(var(--on-background), var(--a30));
       }
       &:active {
-        border-color: rgba(var(--on-background), var(--a30));
+        border-color: rgba(var(--on-background), var(--a45));
       }
     }
     &_clear {
       color: rgba(var(--danger), 1);
-      background-color: rgba(var(--danger), var(--a15));
+      background-color: rgba(var(--danger), var(--a30));
       &:hover {
-        background-color: rgba(var(--danger), var(--a30));
+        background-color: rgba(var(--danger), var(--a45));
       }
       &:active {
-        background-color: rgba(var(--danger), var(--a45));
+        background-color: rgba(var(--danger), var(--a60));
       }
     }
     &_active {
