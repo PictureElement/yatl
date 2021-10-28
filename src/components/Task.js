@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react'; // Hooks
-import db from '../firebase';
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import ActiveButton from './ActiveButton';
-import CompletedButton from './CompletedButton';
 
 function Task(props) {
 
@@ -50,15 +46,6 @@ function Task(props) {
     }
 
     props.updateStatus(props.task.id);
-  }
-
-  let button;
-
-  // Select button component based on task state
-  if (props.task.completed) {
-    button = <CompletedButton onClick={props.updateStatus} />
-  } else {
-    button = <ActiveButton onClick={props.updateStatus} />
   }
 
   // Viewing template
