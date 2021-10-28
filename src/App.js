@@ -68,6 +68,13 @@ function App() {
     console.log("Document written with ID: ", docRef.id);
   }
 
+  // Clear completed tasks
+  const clearCompleted = () => {
+    if (window.confirm('Clear all completed tasks? This is a permanent action.')) {
+      tasks.filter(FILTER_MAP['Completed']).forEach(task => deleteTask(task.id));
+    }
+  }
+
   // Delete document from Firestore
   const deleteTask = async (id) => {
     await deleteDoc(doc(db, "tasks", id));
@@ -130,7 +137,7 @@ function App() {
             <div className="header__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button className="header__button header__button_clear" type="button">Clear completed</button>
+            <button onClick={clearCompleted} className="header__button header__button_clear" type="button">Clear completed</button>
           </div>
         </div>
       </section>
