@@ -5,9 +5,21 @@ import './App.scss'; // Root component styles
 import db from './firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from './components/NewTask';
+import FilterButton from './components/FilterButton';
 import sound from './assets/complete.mp3';
 
+const FILTER_MAP = {
+  All: () => true,
+  Active: task => !task.completed,
+  Completed: task => task.completed
+};
+
+// Array ["All", "Active", "Completed"]
+const FILTER_NAMES = Object.keys(FILTER_MAP);
+
 function App() {
+  // 'filter' state 
+  const [filter, setFilter] = useState('All');
   /**
    * useState() hook creates a piece of state for a component, and its only parameter determines the initial value of that state.
    * It returns two things: the state, and a function that can be used to update the state later.
@@ -95,9 +107,13 @@ function App() {
     audio.play();
   }
 
-  // You should always pass a unique key to anything you render with iteration. 
-  const taskList = tasks.map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} editTask={editTask} />);
+  // Array of <FilterButton /> elements. You should always pass a unique key to anything you render with iteration.
+  const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} isPressed={name === filter} />);
 
+  // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
+  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} editTask={editTask} />);
+
+  // Calculate active task count
   const activeTaskCount = tasks.filter(task => task.completed === false).length;
   const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
@@ -112,9 +128,7 @@ function App() {
           <div className="header">
             <div id="header-count" className="header__count">{headerCountText}</div>
             <div className="header__filters" role="group" aria-label="Filter options">
-              <button className="header__button header__button_filter header__button_active" type="button">All</button>
-              <button className="header__button header__button_filter" type="button">Active</button>
-              <button className="header__button header__button_filter" type="button">Completed</button>
+              {filterList}
             </div>
             <button className="header__button header__button_clear" type="button">Clear completed</button>
           </div>
