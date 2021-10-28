@@ -98,6 +98,7 @@ function Task(props) {
             New title for {props.task.title}
           </label>
           <input
+            autoFocus
             className="form-text__input mr-2"
             id={props.task.id}
             type="text"
