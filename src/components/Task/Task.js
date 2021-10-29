@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'; // Hooks
+import { useState, useEffect, useRef } from 'react'; // Hooks
 import './Task.scss';
 
 function Task(props) {
+  const checkboxElement = useRef(null);
 
   // 'textDecoration' state
   const [textDecoration, setTextDecoration] = useState('');
@@ -46,6 +47,9 @@ function Task(props) {
       setTextDecoration('');
     }
 
+    // Remove focus from checkbox element
+    checkboxElement.current.blur();
+
     props.updateStatus(props.task.id);
   }
 
@@ -60,6 +64,7 @@ function Task(props) {
           type="checkbox"
           defaultChecked={props.task.completed}
           onChange={handleOnChange}
+          ref={checkboxElement}
         />
         <label className={`todo-item__label ${textDecoration}`} htmlFor={props.task.id}>
           {props.task.title}
