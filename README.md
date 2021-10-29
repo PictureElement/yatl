@@ -73,4 +73,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 1. Combine DarkThemeToggle and LighThemeToggle into ThemeToggle
 2. Make component dialog
-3. Add animations.
