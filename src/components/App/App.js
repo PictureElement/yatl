@@ -5,6 +5,11 @@ import db from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from '../NewTask/NewTask';
 import FilterButton from '../FilterButton/FilterButton';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import sound from '../../assets/complete.mp3';
 import './App.scss';
 
@@ -18,6 +23,10 @@ const FILTER_MAP = {
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App() {
+
+  // 'openDialog' state
+  const [openDialog, setOpenDialog] = React.useState(false);
+
   // 'filter' state 
   const [filter, setFilter] = useState('All');
   /**
@@ -57,6 +66,16 @@ function App() {
     });
   }, []); // Array is empty, so the function passed will run only on first render.
 
+  // Open dialog
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  // Close dialog
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
   // Add document to Firestore
   const addTask = async (title) => {
     // Add a new document with a generated id.
@@ -69,10 +88,11 @@ function App() {
   }
 
   // Clear completed tasks
-  const clearCompleted = () => {
-    if (window.confirm('Clear all completed tasks? This is a permanent action.')) {
-      tasks.filter(FILTER_MAP['Completed']).forEach(task => deleteTask(task.id));
-    }
+  const deleteCompleted = () => {
+    // Delete completed tasks from Firestore
+    tasks.filter(FILTER_MAP['Completed']).forEach(task => deleteTask(task.id));
+    // Close dialog
+    handleClose();
   }
 
   // Delete document from Firestore
@@ -126,6 +146,26 @@ function App() {
  
   return (
     <div className="App">
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Delete all completed tasks?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            This is a permanent action.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <button onClick={handleClose}>Cancel</button>
+          <button onClick={deleteCompleted}>Delete</button>
+        </DialogActions>
+      </Dialog>
+
       <Hero title='To do' />
 
       <NewTask addTask={addTask} />
@@ -148,7 +188,7 @@ function App() {
             <div className="header__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button onClick={clearCompleted} className="header__clear" type="button">Clear completed</button>
+            <button onClick={handleClickOpen} className="header__clear" type="button">Delete completed</button>
           </div>
         </div>
       </section>
