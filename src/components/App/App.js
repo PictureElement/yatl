@@ -126,11 +126,22 @@ function App() {
  
   return (
     <div className="App">
-      <Hero title='Todo' />
+      <Hero title='To do' />
 
       <NewTask addTask={addTask} />
       
-      <section>
+      <section class="mt-12">
+        <div className="container">
+          <ul
+            id="todo-items"
+            aria-labelledby="header-count"
+          >
+            {taskList}
+          </ul>
+        </div>
+      </section>
+
+      <section class="my-12">
         <div className="container">
           <div className="header">
             <div id="header-count" className="header__count">{headerCountText}</div>
@@ -139,17 +150,6 @@ function App() {
             </div>
             <button onClick={clearCompleted} className="header__clear" type="button">Clear completed</button>
           </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="container">
-          <ul
-            id="todo-items"
-            aria-labelledby="header-count"
-          >
-            {taskList}
-          </ul>
         </div>
       </section>
     </div>

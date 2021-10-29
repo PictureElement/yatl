@@ -37,6 +37,15 @@ $spacer: 4px;
   margin-right: 2 * $spacer !important;
 }
 
+.my-12 {
+  margin-top: 12 * $spacer !important;
+  margin-bottom: 12 * $spacer !important;
+}
+
+.mt-12 {
+  margin-top: 12 * $spacer !important;
+}
+
 .w-100 {
   width: 100% !important;
 }
