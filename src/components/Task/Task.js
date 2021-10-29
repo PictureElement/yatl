@@ -55,7 +55,7 @@ function Task(props) {
 
   // Viewing template
   const viewTemplate = (
-    <li className="todo-item">
+    <li className="todo-item fadeInUp">
       <div className="todo-item__group-left">
         <input
           tooltip={`Mark as ${props.task.completed ? 'not' : ''} completed`} flow="right"
