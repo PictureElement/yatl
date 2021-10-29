@@ -47,7 +47,7 @@ function Task(props) {
       setTextDecoration('');
     }
 
-    // Remove focus from checkbox element
+    // Remove focus from checkbox
     checkboxElement.current.blur();
 
     props.updateStatus(props.task.id);

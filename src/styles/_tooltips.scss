@@ -37,8 +37,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 8px 12px;
-  background: #000;
-  color: #fff;
+  background: rgba(var(--on-background), 1);
+  color: rgba(var(--background), 1);
   z-index: 1000; /* absurdity 2 */
 }
 
@@ -63,7 +63,7 @@
 [tooltip][flow^="up"]::before {
   bottom: 100%;
   border-bottom-width: 0;
-  border-top-color: #000;
+  border-top-color: rgba(var(--on-background), 1);
 }
 [tooltip]:not([flow])::after,
 [tooltip][flow^="up"]::after {
@@ -81,7 +81,7 @@
 [tooltip][flow^="down"]::before {
   top: 100%;
   border-top-width: 0;
-  border-bottom-color: #000;
+  border-bottom-color: rgba(var(--on-background), 1);
 }
 [tooltip][flow^="down"]::after {
   top: calc(100% + 5px);
@@ -96,7 +96,7 @@
 [tooltip][flow^="left"]::before {
   top: 50%;
   border-right-width: 0;
-  border-left-color: #000;
+  border-left-color: rgba(var(--on-background), 1);
   left: calc(0em - 5px);
   transform: translate(-.5em, -50%);
 }
@@ -110,7 +110,7 @@
 [tooltip][flow^="right"]::before {
   top: 50%;
   border-left-width: 0;
-  border-right-color: #000;
+  border-right-color: rgba(var(--on-background), 1);
   right: calc(0em - 5px);
   transform: translate(.5em, -50%);
 }
