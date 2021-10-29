@@ -1,7 +1,12 @@
-@import 'variables';
-@import 'reset';
-@import 'helpers';
+@import './styles/variables';
+@import './styles/reset';
+@import './styles/helpers';
+@import './styles/tooltips';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/**
+ * Globals
+ */
 
 body {
   background-color: rgba(var(--background), 1);
@@ -11,6 +16,14 @@ body {
   font-size: 16px;
   letter-spacing: 0.5px;
   line-height: 1.5;
+}
+
+.container {
+  max-width: 800px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
 
 * {
@@ -67,286 +80,5 @@ button {
   outline: none;
   &:focus {
     border: 2px solid rgba(3, 206, 164, .75) !important;
-  }
-}
-
-.hero {
-  background-color: rgba(var(--primary), 1);
-  padding: 68px 0;
-  &__title {
-    color: rgba(var(--on-primary), 1);
-    margin-bottom: 0;
-  }
-}
-
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(var(--on-primary), var(--a15));
-  border: 2px solid transparent;
-  &:hover {
-    background-color: rgba(var(--on-primary), var(--a30));
-  }
-  &:active {
-    background-color: rgba(var(--on-primary), var(--a45));
-  }
-  &__light-icon {
-    fill: rgba(var(--on-primary), 1);
-  }
-  &__dark-icon {
-    fill: rgba(var(--on-primary), 1);
-  }
-}
-
-.new-task {
-  margin-top: -25px;
-}
-
-.input {
-  &__control {
-    border: 2px solid rgba(var(--on-background), var(--a15));
-    border-radius: 24px;
-    width: 100%;
-    height: 48px;
-    padding: 0 16px;
-    display: block;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1;
-    outline: none;
-    color: rgba(var(--on-background), 1);
-    background-color: rgba(var(--background), 1);
-  }
-}
-
-.todo-items {
-  margin-bottom: 48px;
-}
-
-.todo-item {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(var(--on-background), var(--a15));
-  height: auto;
-  padding: 16px 8px;
-  &:first-child {
-    border-top: 1px solid rgba(var(--on-background), var(--a15));
-  }
-  &__group-left {
-    display: flex;
-    flex-grow: 1;
-  }
-  &__group-right {
-    display: flex;
-  }
-  &__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // The following 3 properties set a fixed width
-    flex-basis: 28px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    cursor: pointer;
-    padding: 0;
-    background-color: transparent;
-    &_danger {
-      background-color: rgba(var(--danger), var(--a15));
-      &:hover {
-        background-color: rgba(var(--danger), var(--a30));
-      }
-      &:active {
-        background-color: rgba(var(--danger), var(--a45));
-      }
-    }
-    &_primary {
-      background-color: rgba(var(--primary), var(--a15));
-      &:hover {
-        background-color: rgba(var(--primary), var(--a30));
-      }
-      &:active {
-        background-color: rgba(var(--primary), var(--a45));
-      }
-    }
-    &_success {
-      background-color: rgba(var(--success), var(--a15));
-      &:hover {
-        background-color: rgba(var(--success), var(--a30));
-      }
-      &:active {
-        background-color: rgba(var(--success), var(--a45));
-      }
-    }
-  }
-  &__icon {
-    &_danger {
-      fill: rgba(var(--danger), 1);
-    }
-    &_primary {
-      fill: rgba(var(--primary), 1);
-    }
-    &_success {
-      fill: rgba(var(--success), 1);
-    }
-    pointer-events: none;
-  }
-  &__label {
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-}
-
-.form-check {
-  &__input {
-    margin: 0;
-    float: left;
-    // The following 3 properties set a fixed width
-    flex-basis: 28px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    vertical-align: top;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 18px;
-    appearance: none;
-    border: 2px solid rgba(var(--primary), 1);
-    cursor: pointer;
-    outline: none;
-    &:checked {
-      background-color: rgba(var(--primary), 1);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='18px' viewBox='0 0 24 24' width='18px' fill='%23FFFFFF'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
-    }
-  }
-  &__label {
-    margin: 0 8px;
-  }
-}
-
-.form-text {
-  &__input {
-    padding: 0 8px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1;
-    border: 2px solid rgba(var(--on-background), var(--a15));
-    width: 100%;
-    height: 28px;
-    outline: none;
-    background-color: transparent;
-    color: rgba(var(--on-background), 1);
-  }
-}
-
-.header {
-  border: 1px solid rgba(var(--on-background), var(--a15));
-  padding: 16px;
-  margin: 48px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  @media (max-width: 767.98px) {
-    flex-direction: column;
-  }
-  &__count {
-    white-space: nowrap;
-  }
-  &__filters {
-    position: relative;
-    vertical-align: middle;
-    display: flex;
-    @media (max-width: 767.98px) {
-      margin: 16px 0;
-    }
-  }
-  &__button {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-    display: inline-block;
-    font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    text-decoration: none;
-    vertical-align: middle;
-    background-color: transparent;
-    border: 2px solid transparent;
-    cursor: pointer;
-    &_filter {
-      margin: 0 4px;
-      position: relative;
-      flex: 1 1 auto;
-      color: rgba(var(--on-background), 1);
-      &:hover {
-        border-color: rgba(var(--on-background), var(--a15));
-      }
-    }
-    &_clear {
-      color: rgba(var(--danger), 1);
-      background-color: rgba(var(--danger), var(--a15));
-      &:hover {
-        background-color: rgba(var(--danger), var(--a30));
-      }
-      &:active {
-        background-color: rgba(var(--danger), var(--a45));
-      }
-    }
-    &_active {
-      background-color: rgba(var(--primary), 1);
-      border-color: rgba(var(--primary), 1) !important;
-      color: rgba(var(--on-primary), 1);
-    }
-  }
-}
-
-.tooltip {
-  position: relative;
-  &:hover {
-    .tooltip__arrow, .tooltip__content {
-      opacity: 1;
-      pointer-events: initial;
-    }
-  }
-  &__arrow {
-    opacity: 0;
-    pointer-events: none;
-    border: 8px solid transparent;
-    border-top-color: #000;
-    bottom: 100%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, 8px);
-    height: 0;
-    width: 0;
-    z-index: 10;
-  }
-  &__content {
-    opacity: 0;
-    pointer-events: none;
-    background-color: #000;
-    color: #fff;
-    border-radius: 2px;
-    bottom: 100%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -8px);
-    z-index: 10;
-    font-size: 12px;
-    padding: 4px 8px;
-    white-space: nowrap;
   }
 }

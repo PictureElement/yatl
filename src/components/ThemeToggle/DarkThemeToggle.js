@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './ThemeToggle.scss';
 
 function DarkThemeToggle(props) {
   return (

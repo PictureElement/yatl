@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'; // Hooks
-import Hero from './components/Hero'; // Hero component
-import Task from './components/Task'; // Task component
-import db from './firebase';
+import Hero from '../Hero/Hero'; // Hero component
+import Task from '../Task/Task'; // Task component
+import db from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
-import NewTask from './components/NewTask';
-import FilterButton from './components/FilterButton';
-import sound from './assets/complete.mp3';
+import NewTask from '../NewTask/NewTask';
+import FilterButton from '../FilterButton/FilterButton';
+import sound from '../../assets/complete.mp3';
+import './App.scss';
 
 const FILTER_MAP = {
   All: () => true,
@@ -136,7 +137,7 @@ function App() {
             <div className="header__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button onClick={clearCompleted} className="header__button header__button_clear" type="button">Clear completed</button>
+            <button onClick={clearCompleted} className="header__clear" type="button">Clear completed</button>
           </div>
         </div>
       </section>
@@ -144,7 +145,6 @@ function App() {
       <section>
         <div className="container">
           <ul
-            className="todo-items"
             id="todo-items"
             aria-labelledby="header-count"
           >

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'; // Hooks
+import './Task.scss';
 
 function Task(props) {
 
@@ -51,21 +52,21 @@ function Task(props) {
   // Viewing template
   const viewTemplate = (
     <li className="todo-item">
-      <div className="todo-item__group-left form-check">
+      <div className="todo-item__group-left">
         <div className="tooltip">
           <div className="tooltip__content">
             Mark as {props.task.completed ? 'not' : ''} completed
           </div>
           <div className="tooltip__arrow" />
           <input
-            className="form-check__input"
+            className="todo-item__input-checkbox"
             id={props.task.id}
             type="checkbox"
             defaultChecked={props.task.completed}
             onChange={handleOnChange}
           />
         </div>
-        <label className={`todo-item__label form-check__label ${textDecoration}`} htmlFor={props.task.id}>
+        <label className={`todo-item__label ${textDecoration}`} htmlFor={props.task.id}>
           {props.task.title}
         </label>
       </div>
@@ -99,13 +100,13 @@ function Task(props) {
   const editTemplate = (
     <li className="todo-item">
       <form className="d-flex justify-content-between align-items-center w-100" onSubmit={handleSubmit}>
-        <div className="todo-item__group-left form-text">
+        <div className="todo-item__group-left">
           <label className="visually-hidden" htmlFor={props.task.id}>
             New title for {props.task.title}
           </label>
           <input
             autoFocus
-            className="form-text__input mr-2"
+            className="todo-item__input-text mr-2"
             id={props.task.id}
             type="text"
             onChange={(e) => setNewTitle(e.target.value)}

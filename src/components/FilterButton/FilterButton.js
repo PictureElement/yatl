@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import './FilterButton.scss';
 
 function FilterButton(props) {
   return (
     <button
       onClick={() => props.setFilter(props.name)}
-      className={`header__button header__button_filter ${props.isPressed ? 'header__button_active' : ''}`}
+      className={`filter-button ${props.isPressed ? 'filter-button_active' : ''}`}
       type="button"
       aria-pressed={props.isPressed}
     >

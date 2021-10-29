@@ -1,0 +1,24 @@
+.filter-button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
+  color: rgba(var(--on-background), 1);
+  &:hover {
+    border-color: rgba(var(--on-background), var(--a15));
+  }
+  &_active {
+    background-color: rgba(var(--primary), 1);
+    border-color: rgba(var(--primary), 1) !important;
+    color: rgba(var(--on-primary), 1);
+  }
+}

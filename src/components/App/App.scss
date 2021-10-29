@@ -1,0 +1,50 @@
+.header {
+  border: 1px solid rgba(var(--on-background), var(--a15));
+  padding: 16px;
+  margin: 48px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+  }
+  &__count {
+    white-space: nowrap;
+  }
+  &__filters {
+    position: relative;
+    vertical-align: middle;
+    display: flex;
+    .filter-button {
+      margin: 0 4px;
+      position: relative;
+      flex: 1 1 auto;
+    }
+    @media (max-width: 767.98px) {
+      margin: 16px 0;
+    }
+  }
+  &__clear {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
+    color: rgba(var(--danger), 1);
+    background-color: rgba(var(--danger), var(--a15));
+    &:hover {
+      background-color: rgba(var(--danger), var(--a30));
+    }
+    &:active {
+      background-color: rgba(var(--danger), var(--a45));
+    }
+  }
+}

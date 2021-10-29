@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'; // Hooks
-import LightThemeToggle from './LightThemeToggle';
-import DarkThemeToggle from './DarkThemeToggle';
+import LightThemeToggle from '../ThemeToggle/LightThemeToggle';
+import DarkThemeToggle from '../ThemeToggle/DarkThemeToggle';
+import './Hero.scss';
 
 function Hero(props) {
 

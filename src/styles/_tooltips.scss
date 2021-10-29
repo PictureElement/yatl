@@ -1,0 +1,37 @@
+.tooltip {
+  position: relative;
+  &:hover {
+    .tooltip__arrow, .tooltip__content {
+      opacity: 1;
+      pointer-events: initial;
+    }
+  }
+  &__arrow {
+    opacity: 0;
+    pointer-events: none;
+    border: 8px solid transparent;
+    border-top-color: #000;
+    bottom: 100%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, 8px);
+    height: 0;
+    width: 0;
+    z-index: 10;
+  }
+  &__content {
+    opacity: 0;
+    pointer-events: none;
+    background-color: #000;
+    color: #fff;
+    border-radius: 2px;
+    bottom: 100%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -8px);
+    z-index: 10;
+    font-size: 12px;
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+}

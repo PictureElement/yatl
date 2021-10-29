@@ -1,0 +1,24 @@
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(var(--on-primary), var(--a15));
+  border: 2px solid transparent;
+  &:hover {
+    background-color: rgba(var(--on-primary), var(--a30));
+  }
+  &:active {
+    background-color: rgba(var(--on-primary), var(--a45));
+  }
+  &__light-icon {
+    fill: rgba(var(--on-primary), 1);
+  }
+  &__dark-icon {
+    fill: rgba(var(--on-primary), 1);
+  }
+}
