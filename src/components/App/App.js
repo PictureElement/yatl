@@ -129,7 +129,7 @@ function App() {
       <Hero title='Todo' />
 
       <NewTask addTask={addTask} />
-
+      
       <section>
         <div className="container">
           <div className="header">

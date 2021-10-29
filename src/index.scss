@@ -2,7 +2,7 @@
 @import './styles/reset';
 @import './styles/helpers';
 @import './styles/tooltips';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 
 /**
  * Globals
@@ -81,4 +81,8 @@ button {
   &:focus {
     border: 2px solid rgba(3, 206, 164, .75) !important;
   }
+}
+
+button[tooltip] {
+  font-family: 'Poppins', sans-serif;
 }
