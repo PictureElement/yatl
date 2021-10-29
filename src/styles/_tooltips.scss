@@ -36,7 +36,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 4px 8px;
+  padding: 8px 12px;
   background: #000;
   color: #fff;
   z-index: 1000; /* absurdity 2 */
@@ -123,14 +123,14 @@
 /* KEYFRAMES */
 @keyframes tooltips-vert {
   to {
-    opacity: .9;
+    opacity: 1;
     transform: translate(-50%, 0);
   }
 }
 
 @keyframes tooltips-horz {
   to {
-    opacity: .9;
+    opacity: 1;
     transform: translate(0, -50%);
   }
 }
