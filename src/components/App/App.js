@@ -171,24 +171,24 @@ function App() {
 
       <NewTask onAddTask={handleAddTask} />
 
-      <section className="mt-4">
+      <section className="mt-8">
         <div className="container">
           <div className="toolbar">
             <div id="toolbar-count" className="toolbar__count">{toolbarCountText}</div>
             <Select setFilter={setFilter} />
-            {/* <button onClick={() => setShowDeleteCompletedDialog(true)} className="toolbar__delete" type="button">Delete completed</button> */}
           </div>
         </div>
       </section>
       
-      <section className="my-8">
+      <section>
         <div className="container">
           <ul
-            id="todo-items"
+            className="mt-8"
             aria-labelledby="toolbar-count"
           >
             {taskList}
           </ul>
+          <button onClick={() => setShowDeleteCompletedDialog(true)} className="toolbar__delete my-8" type="button">Delete completed</button>
         </div>
       </section>
 

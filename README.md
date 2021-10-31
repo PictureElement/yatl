@@ -71,4 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Todo
 
-1. Make component dialog
+1. Checkmark synchronization issues.
