@@ -6,10 +6,6 @@ import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteD
 import NewTask from '../NewTask/NewTask';
 import FilterButton from '../FilterButton/FilterButton';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
 import sound from '../../assets/complete.mp3';
 import './App.scss';
 
@@ -28,7 +24,7 @@ function App() {
    * useState() hook creates a piece of state for a component, and its only parameter determines the initial value of that state.
    * It returns two things: the state, and a function that can be used to update the state later.
    */
-  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [showDeleteCompletedDialog, setShowDeleteCompletedDialog] = useState(false);
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
 
@@ -81,11 +77,11 @@ function App() {
   }
 
   // Delete all completed tasks
-  const handleDeleteCompletedClick = () => {
+  const handleClick = () => {
     // Delete completed tasks from Firestore
     tasks.filter(FILTER_MAP['Completed']).forEach(task => handleDeleteTask(task.id));
     // Close dialog
-    setDialogIsOpen(false);
+    setShowDeleteCompletedDialog(false);
   }
 
   // Edit task title
@@ -123,7 +119,7 @@ function App() {
   }
 
   // Array of <FilterButton /> elements. You should always pass a unique key to anything you render with iteration.
-  const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} isPressed={name === filter} />);
+  const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} pressed={name === filter} />);
 
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
   const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} onUpdateStatus={handleUpdateStatus} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />);
@@ -136,33 +132,18 @@ function App() {
     <div className="App">
 
       <Dialog
-        open={dialogIsOpen}
-        onClose={(e) => setDialogIsOpen(false)}
+        className="dialog"
+        open={showDeleteCompletedDialog}
+        onClose={(e) => setShowDeleteCompletedDialog(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          Delete all completed tasks?
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            This is a permanent action.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <button
-            className="MuiButton"
-            onCancelClick={(e) => setDialogIsOpen(false)}
-            >
-              Cancel
-          </button>
-          <button
-            className="MuiButton MuiButton_negative"
-            onDeleteCompletedClick={handleDeleteCompletedClick}
-            >
-              Delete all
-          </button>
-        </DialogActions>
+        <h2 className="dialog__title" id="alert-dialog-title">Delete all completed tasks?</h2>
+        <p className="dialog__text" id="alert-dialog-description">This is a permanent action.</p>
+        <div class="dialog__actions">
+          <button className="dialog__button mr-2" onClick={(e) => setShowDeleteCompletedDialog(false)}>Cancel</button>
+          <button className="dialog__button dialog__button_negative" onClick={handleClick}>Delete all</button>
+        </div>
       </Dialog>
       
       <Hero title='To do' />
@@ -187,7 +168,7 @@ function App() {
             <div className="header__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button onClick={(e) => setDialogIsOpen(true)} className="header__clear" type="button">Delete completed</button>
+            <button onClick={(e) => setShowDeleteCompletedDialog(true)} className="header__clear" type="button">Delete completed</button>
           </div>
         </div>
       </section>

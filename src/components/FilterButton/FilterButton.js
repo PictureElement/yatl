@@ -5,9 +5,9 @@ function FilterButton(props) {
   return (
     <button
       onClick={() => props.setFilter(props.name)}
-      className={`filter-button ${props.isPressed ? 'filter-button_active' : ''}`}
+      className={`filter-button ${props.pressed ? 'filter-button_active' : ''}`}
       type="button"
-      aria-pressed={props.isPressed}
+      aria-pressed={props.pressed}
     >
       <span className="visually-hidden">Show </span>
       {props.name}
