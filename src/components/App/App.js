@@ -24,16 +24,14 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 function App() {
 
-  // 'openDialog' state
-  const [openDialog, setOpenDialog] = React.useState(false);
-
-  // 'filter' state 
-  const [filter, setFilter] = useState('All');
   /**
    * useState() hook creates a piece of state for a component, and its only parameter determines the initial value of that state.
    * It returns two things: the state, and a function that can be used to update the state later.
    */
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
+
   /**
    * useEffect hook
    * This hook lets you perform "side effects". For example, data fetching, setting up a subscription, and manually changing the DOM in React components.
@@ -66,18 +64,8 @@ function App() {
     });
   }, []); // Array is empty, so the function passed will run only on first render.
 
-  // Open dialog
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-
-  // Close dialog
-  const handleClose = () => {
-    setOpenDialog(false);
-  };
-
-  // Add document to Firestore
-  const addTask = async (title) => {
+// Add document to Firestore
+  const handleAddTask = async (title) => {
     // Add a new document with a generated id.
     const docRef = await addDoc(collection(db, "tasks"), {
       completed: false,
@@ -87,21 +75,21 @@ function App() {
     console.log("Document written with ID: ", docRef.id);
   }
 
-  // Clear completed tasks
-  const deleteCompleted = () => {
-    // Delete completed tasks from Firestore
-    tasks.filter(FILTER_MAP['Completed']).forEach(task => deleteTask(task.id));
-    // Close dialog
-    handleClose();
-  }
-
   // Delete document from Firestore
-  const deleteTask = async (id) => {
+  const handleDeleteTask = async (id) => {
     await deleteDoc(doc(db, "tasks", id));
   }
 
+  // Delete all completed tasks
+  const handleDeleteCompletedClick = () => {
+    // Delete completed tasks from Firestore
+    tasks.filter(FILTER_MAP['Completed']).forEach(task => handleDeleteTask(task.id));
+    // Close dialog
+    setDialogIsOpen(false);
+  }
+
   // Edit task title
-  const editTask = async (id, title) => {
+  const handleEditTask = async (id, title) => {
     const taskRef = doc(db, 'tasks', id);
 
     // Update task title
@@ -110,8 +98,14 @@ function App() {
     });
   }
 
+  // Play sound
+  function playSound() {
+    const audio = new Audio(sound);
+    audio.play();
+  }
+
   // Update task status
-  const updateStatus = async (id) => {
+  const handleUpdateStatus = async (id) => {
     const taskRef = doc(db, 'tasks', id);
 
     // Find task
@@ -128,17 +122,11 @@ function App() {
     });
   }
 
-  // Play sound when task in completed
-  function playSound() {
-    const audio = new Audio(sound);
-    audio.play();
-  }
-
   // Array of <FilterButton /> elements. You should always pass a unique key to anything you render with iteration.
   const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} isPressed={name === filter} />);
 
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
-  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} updateStatus={updateStatus} deleteTask={deleteTask} editTask={editTask} />);
+  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} onUpdateStatus={handleUpdateStatus} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />);
 
   // Calculate active task count
   const activeTaskCount = tasks.filter(task => task.completed === false).length;
@@ -146,9 +134,10 @@ function App() {
  
   return (
     <div className="App">
+
       <Dialog
-        open={openDialog}
-        onClose={handleClose}
+        open={dialogIsOpen}
+        onClose={(e) => setDialogIsOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -161,14 +150,24 @@ function App() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button className="MuiButton" onClick={handleClose}>Cancel</button>
-          <button className="MuiButton MuiButton_negative" onClick={deleteCompleted}>Delete all</button>
+          <button
+            className="MuiButton"
+            onCancelClick={(e) => setDialogIsOpen(false)}
+            >
+              Cancel
+          </button>
+          <button
+            className="MuiButton MuiButton_negative"
+            onDeleteCompletedClick={handleDeleteCompletedClick}
+            >
+              Delete all
+          </button>
         </DialogActions>
       </Dialog>
-
+      
       <Hero title='To do' />
 
-      <NewTask addTask={addTask} />
+      <NewTask onAddTask={handleAddTask} />
       
       <section className="mt-12">
         <div className="container">
@@ -188,10 +187,11 @@ function App() {
             <div className="header__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button onClick={handleClickOpen} className="header__clear" type="button">Delete completed</button>
+            <button onClick={(e) => setDialogIsOpen(true)} className="header__clear" type="button">Delete completed</button>
           </div>
         </div>
       </section>
+      
     </div>
   );
 }
