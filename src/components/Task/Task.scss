@@ -38,13 +38,13 @@
         background-color: rgba(var(--danger), var(--a45));
       }
     }
-    &_primary {
-      background-color: rgba(var(--primary), var(--a15));
+    &_secondary {
+      background-color: rgba(var(--on-background), var(--a15));
       &:hover {
-        background-color: rgba(var(--primary), var(--a30));
+        background-color: rgba(var(--on-background), var(--a30));
       }
       &:active {
-        background-color: rgba(var(--primary), var(--a45));
+        background-color: rgba(var(--on-background), var(--a45));
       }
     }
     &_success {
@@ -61,8 +61,8 @@
     &_danger {
       fill: rgba(var(--danger), 1);
     }
-    &_primary {
-      fill: rgba(var(--primary), 1);
+    &_secondary {
+      fill: rgba(var(--on-background), 1);
     }
     &_success {
       fill: rgba(var(--success), 1);

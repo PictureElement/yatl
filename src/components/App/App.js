@@ -4,8 +4,8 @@ import Task from '../Task/Task'; // Task component
 import db from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import NewTask from '../NewTask/NewTask';
-import FilterButton from '../FilterButton/FilterButton';
 import Dialog from '@mui/material/Dialog';
+import Select from '../Select/Select';
 import sound from '../../assets/complete.mp3';
 import './App.scss';
 
@@ -127,9 +127,6 @@ function App() {
     });
   }
 
-  // Array of <FilterButton /> elements. You should always pass a unique key to anything you render with iteration.
-  const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} pressed={name === filter} />);
-
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
   const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} setTaskToDelete={setTaskToDelete} setShowDeleteDialog={setShowDeleteDialog} onUpdateStatus={handleUpdateStatus} onEditTask={handleEditTask} />);
 
@@ -189,10 +186,11 @@ function App() {
         <div className="container">
           <div className="footer">
             <div id="footer-count" className="footer__count">{footerCountText}</div>
-            <div className="footer__filters" role="group" aria-label="Filter options">
+            <Select setFilter={setFilter} />
+            {/* <div className="footer__filters" role="group" aria-label="Filter options">
               {filterList}
-            </div>
-            <button onClick={() => setShowDeleteCompletedDialog(true)} className="footer__clear" type="button">Delete completed</button>
+            </div> */}
+            <button onClick={() => setShowDeleteCompletedDialog(true)} className="footer__delete" type="button">Delete completed</button>
           </div>
         </div>
       </section>

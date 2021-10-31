@@ -1,4 +1,4 @@
-.filter-button {
+.filter {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 16px;
@@ -6,19 +6,21 @@
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;
-  text-align: center;
   text-decoration: none;
   vertical-align: middle;
-  background-color: transparent;
+  background-color: rgba(var(--on-background), var(--a15));
   border: 2px solid transparent;
   cursor: pointer;
   color: rgba(var(--on-background), 1);
+  outline: none;
   &:hover {
-    border-color: rgba(var(--on-background), var(--a15));
+    background-color: rgba(var(--on-background), var(--a30));
   }
-  &_active {
-    background-color: rgba(var(--primary), 1);
-    border-color: rgba(var(--primary), 1) !important;
-    color: rgba(var(--on-primary), 1);
+  &:focus {
+    border: 2px solid rgba(3, 206, 164, .75) !important;
+  }
+  &__option {
+    background-color: rgba(var(--background), 1);
+    color: rgba(var(--on-background), 1);
   }
 }
