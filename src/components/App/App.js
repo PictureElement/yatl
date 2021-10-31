@@ -161,8 +161,8 @@ function App() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button class="MuiButton" onClick={handleClose}>Cancel</button>
-          <button class="MuiButton MuiButton_negative" onClick={deleteCompleted}>Delete all</button>
+          <button className="MuiButton" onClick={handleClose}>Cancel</button>
+          <button className="MuiButton MuiButton_negative" onClick={deleteCompleted}>Delete all</button>
         </DialogActions>
       </Dialog>
 
@@ -170,7 +170,7 @@ function App() {
 
       <NewTask addTask={addTask} />
       
-      <section class="mt-12">
+      <section className="mt-12">
         <div className="container">
           <ul
             id="todo-items"
@@ -181,7 +181,7 @@ function App() {
         </div>
       </section>
 
-      <section class="my-12">
+      <section className="my-12">
         <div className="container">
           <div className="header">
             <div id="header-count" className="header__count">{headerCountText}</div>
