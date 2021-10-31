@@ -47,7 +47,7 @@ function Task(props) {
     // Show confirm dialog
     props.setShowDeleteDialog(true);
     // Set id of task to be deleted
-    props.setTaskToDelete(props.task.id);
+    props.setTaskIdToDelete(props.task.id);
   }
 
   function handleChange() {

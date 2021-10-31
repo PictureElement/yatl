@@ -15,9 +15,6 @@ const FILTER_MAP = {
   Completed: task => task.completed
 };
 
-// Array ["All", "Active", "Completed"]
-const FILTER_NAMES = Object.keys(FILTER_MAP);
-
 function App() {
 
   /**
@@ -28,7 +25,7 @@ function App() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
-  const [taskToDelete, setTaskToDelete] = useState('');
+  const [taskIdToDelete, setTaskIdToDelete] = useState('');
 
   /**
    * useEffect hook
@@ -62,15 +59,14 @@ function App() {
     });
   }, []); // Array is empty, so the function passed will run only on first render.
 
-// Add document to Firestore
+  // Add document to Firestore
   const handleAddTask = async (title) => {
     // Add a new document with a generated id.
-    const docRef = await addDoc(collection(db, "tasks"), {
+    await addDoc(collection(db, "tasks"), {
       completed: false,
       created: Timestamp.now(),
       title: title
     });
-    console.log("Document written with ID: ", docRef.id);
   }
 
   // Delete document from Firestore
@@ -88,7 +84,7 @@ function App() {
 
   function handleDeleteClick() {
     // Delete task from Firestore
-    deleteTask(taskToDelete);
+    deleteTask(taskIdToDelete);
     // Hide dialog
     setShowDeleteDialog(false);
   }
@@ -128,12 +124,15 @@ function App() {
   }
 
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
-  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} setTaskToDelete={setTaskToDelete} setShowDeleteDialog={setShowDeleteDialog} onUpdateStatus={handleUpdateStatus} onEditTask={handleEditTask} />);
+  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} setTaskIdToDelete={setTaskIdToDelete} setShowDeleteDialog={setShowDeleteDialog} onUpdateStatus={handleUpdateStatus} onEditTask={handleEditTask} />);
 
-  // Calculate active task count
-  const activeTaskCount = tasks.filter(task => task.completed === false).length;
+  // Active task count
+  const activeTaskCount = tasks.filter(FILTER_MAP['Active']).length;
   const toolbarCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
+  // Complete task count
+  const completeTaskCount = tasks.filter(FILTER_MAP['Completed']).length;
+  
   return (
     <div className="App">
 
@@ -188,7 +187,15 @@ function App() {
           >
             {taskList}
           </ul>
-          <button onClick={() => setShowDeleteCompletedDialog(true)} className="toolbar__delete my-8" type="button">Delete completed</button>
+          {completeTaskCount > 0 &&
+            <button
+              onClick={() => setShowDeleteCompletedDialog(true)}
+              className="toolbar__delete my-8"
+              type="button"
+            >
+              Delete completed
+            </button>
+          }
         </div>
       </section>
 
