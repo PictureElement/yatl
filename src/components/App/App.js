@@ -161,8 +161,8 @@ function App() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <button onClick={handleClose}>Cancel</button>
-          <button onClick={deleteCompleted}>Delete</button>
+          <button class="MuiButton" onClick={handleClose}>Cancel</button>
+          <button class="MuiButton MuiButton_negative" onClick={deleteCompleted}>Delete all</button>
         </DialogActions>
       </Dialog>
 

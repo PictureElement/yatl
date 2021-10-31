@@ -47,3 +47,61 @@
     }
   }
 }
+
+.Mui {
+  &Paper-root {
+    background-color: rgba(var(--on-background), 1) !important;
+    border-radius: 0 !important;
+  }
+  &Typography-root {
+    font-family: 'Poppins', sans-serif !important;
+    color: rgba(var(--background), 1) !important;
+    font-weight: 400 !important;
+    font-size: 20px !important;
+    letter-spacing: 0.15 !important;
+    line-height: 1.2 !important;
+  }
+  &DialogContentText-root {
+    font-family: 'Poppins', sans-serif !important;
+    color: rgba(var(--background), 1) !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.5 !important;
+  }
+  &Button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
+    color: rgba(var(--background), 1);
+    &:hover {
+      border-color: rgba(var(--background), var(--a30));
+    }
+    &:active {
+      background-color: rgba(var(--background), 1);
+      border-color: rgba(var(--background), 1);
+      color: rgba(var(--on-background), 1);
+    }
+    &_negative {
+      color: rgba(var(--danger), 1);
+      &:hover {
+        border-color: rgba(var(--danger), var(--a30));
+      }
+      &:active {
+        background-color: rgba(var(--danger), 1);
+        border-color: rgba(var(--danger), 1);
+        color: #fff;
+      }
+    }
+  }
+}
