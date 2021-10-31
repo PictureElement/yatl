@@ -45,9 +45,7 @@
 /* Make the tooltips respond to hover */
 @media (hover: hover) {
   [tooltip]:hover::before,
-  [tooltip]:hover::after,
-  [tooltip]:focus::before,
-  [tooltip]:focus::after {
+  [tooltip]:hover::after {
     display: block;
   }
 }
@@ -137,12 +135,6 @@
 
 /* FX All The Things */
 @media (hover: hover) {
-  [tooltip]:not([flow]):focus::before,
-  [tooltip]:not([flow]):focus::after,
-  [tooltip][flow^="up"]:focus::before,
-  [tooltip][flow^="up"]:focus::after,
-  [tooltip][flow^="down"]:focus::before,
-  [tooltip][flow^="down"]:focus::after,
   [tooltip]:not([flow]):hover::before,
   [tooltip]:not([flow]):hover::after,
   [tooltip][flow^="up"]:hover::before,
@@ -152,10 +144,6 @@
     animation: tooltips-vert 300ms ease-out forwards;
   }
 
-  [tooltip][flow^="left"]:focus::before,
-  [tooltip][flow^="left"]:focus::after,
-  [tooltip][flow^="right"]:focus::before,
-  [tooltip][flow^="right"]:focus::after,
   [tooltip][flow^="left"]:hover::before,
   [tooltip][flow^="left"]:hover::after,
   [tooltip][flow^="right"]:hover::before,

@@ -71,5 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Todo
 
-1. Combine DarkThemeToggle and LighThemeToggle into ThemeToggle
-2. Make component dialog
+1. Make component dialog

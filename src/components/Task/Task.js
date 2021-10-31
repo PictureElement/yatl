@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from 'react'; // Hooks
+import { useState, useEffect } from 'react'; // Hooks
 import './Task.scss';
 
 function Task(props) {
-  const checkboxElement = useRef(null);
-
   // 'textDecoration' state
   const [textDecoration, setTextDecoration] = useState('');
 
@@ -38,11 +36,18 @@ function Task(props) {
     }
   }
 
-  function handleClick() {
+  function handleCancelClick() {
     // Cancel editing and return to viewing mode
     setEditing(false);
     // Clear new title
     setNewTitle('');
+  }
+
+  function handleDeleteTaskClick() {
+    // Show confirm dialog
+    props.setShowDeleteDialog(true);
+    // Set id of task to be deleted
+    props.setTaskToDelete(props.task.id);
   }
 
   function handleChange() {
@@ -53,9 +58,6 @@ function Task(props) {
     } else {
       setTextDecoration('');
     }
-
-    // Remove focus from checkbox
-    checkboxElement.current.blur();
 
     props.onUpdateStatus(props.task.id);
   }
@@ -70,14 +72,13 @@ function Task(props) {
           type="checkbox"
           defaultChecked={props.task.completed}
           onChange={handleChange}
-          ref={checkboxElement}
         />
         <label className={`todo-item__label ${textDecoration}`} htmlFor={props.task.id}>
           {props.task.title}
         </label>
       </div>
       <div className="todo-item__group-right">
-        <button tooltip="Delete" flow="down" onClick={() => props.onDeleteTask(props.task.id)} className="todo-item__button todo-item__button_danger mr-2" type="button">
+        <button tooltip="Delete" flow="down" onClick={handleDeleteTaskClick} className="todo-item__button todo-item__button_danger mr-2" type="button">
           <svg className="todo-item__icon todo-item__icon_danger" xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
           <span className="visually-hidden">Delete task</span>
         </button>
@@ -108,7 +109,7 @@ function Task(props) {
           />
         </div>
         <div className="todo-item__group-right">
-          <button tooltip="Cancel" flow="down" onClick={handleClick} className="todo-item__button todo-item__button_primary mr-2" type="button">
+          <button tooltip="Cancel" flow="down" onClick={handleCancelClick} className="todo-item__button todo-item__button_primary mr-2" type="button">
             <svg className="todo-item__icon todo-item__icon_primary" xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 24 24" width="18px"><path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg>
             <span className="visually-hidden">Cancel</span>
           </button>

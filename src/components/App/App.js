@@ -25,8 +25,10 @@ function App() {
    * It returns two things: the state, and a function that can be used to update the state later.
    */
   const [showDeleteCompletedDialog, setShowDeleteCompletedDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
+  const [taskToDelete, setTaskToDelete] = useState('');
 
   /**
    * useEffect hook
@@ -72,16 +74,23 @@ function App() {
   }
 
   // Delete document from Firestore
-  const handleDeleteTask = async (id) => {
+  const deleteTask = async (id) => {
     await deleteDoc(doc(db, "tasks", id));
   }
 
   // Delete all completed tasks
-  const handleClick = () => {
+  const handleDeleteAllClick = () => {
     // Delete completed tasks from Firestore
-    tasks.filter(FILTER_MAP['Completed']).forEach(task => handleDeleteTask(task.id));
+    tasks.filter(FILTER_MAP['Completed']).forEach(task => deleteTask(task.id));
     // Close dialog
     setShowDeleteCompletedDialog(false);
+  }
+
+  function handleDeleteClick() {
+    // Delete task from Firestore
+    deleteTask(taskToDelete);
+    // Hide dialog
+    setShowDeleteDialog(false);
   }
 
   // Edit task title
@@ -122,11 +131,11 @@ function App() {
   const filterList = FILTER_NAMES.map(name => <FilterButton key={name} name={name} setFilter={setFilter} pressed={name === filter} />);
 
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
-  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} onUpdateStatus={handleUpdateStatus} onDeleteTask={handleDeleteTask} onEditTask={handleEditTask} />);
+  const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} setTaskToDelete={setTaskToDelete} setShowDeleteDialog={setShowDeleteDialog} onUpdateStatus={handleUpdateStatus} onEditTask={handleEditTask} />);
 
   // Calculate active task count
   const activeTaskCount = tasks.filter(task => task.completed === false).length;
-  const headerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
+  const footerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
   return (
     <div className="App">
@@ -134,15 +143,30 @@ function App() {
       <Dialog
         className="dialog"
         open={showDeleteCompletedDialog}
-        onClose={(e) => setShowDeleteCompletedDialog(false)}
+        onClose={() => setShowDeleteCompletedDialog(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <h2 className="dialog__title" id="alert-dialog-title">Delete all completed tasks?</h2>
         <p className="dialog__text" id="alert-dialog-description">This is a permanent action.</p>
-        <div class="dialog__actions">
-          <button className="dialog__button mr-2" onClick={(e) => setShowDeleteCompletedDialog(false)}>Cancel</button>
-          <button className="dialog__button dialog__button_negative" onClick={handleClick}>Delete all</button>
+        <div className="dialog__actions">
+          <button className="dialog__button mr-2" onClick={() => setShowDeleteCompletedDialog(false)}>Cancel</button>
+          <button className="dialog__button dialog__button_negative" onClick={handleDeleteAllClick}>Delete all</button>
+        </div>
+      </Dialog>
+
+      <Dialog
+        className="dialog"
+        open={showDeleteDialog}
+        onClose={() => setShowDeleteDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <h2 className="dialog__title" id="alert-dialog-title">Delete task?</h2>
+        <p className="dialog__text" id="alert-dialog-description">This is a permanent action.</p>
+        <div className="dialog__actions">
+          <button className="dialog__button mr-2" onClick={() => setShowDeleteDialog(false)}>Cancel</button>
+          <button className="dialog__button dialog__button_negative" onClick={handleDeleteClick}>Delete</button>
         </div>
       </Dialog>
       
@@ -154,7 +178,7 @@ function App() {
         <div className="container">
           <ul
             id="todo-items"
-            aria-labelledby="header-count"
+            aria-labelledby="footer-count"
           >
             {taskList}
           </ul>
@@ -163,12 +187,12 @@ function App() {
 
       <section className="my-12">
         <div className="container">
-          <div className="header">
-            <div id="header-count" className="header__count">{headerCountText}</div>
-            <div className="header__filters" role="group" aria-label="Filter options">
+          <div className="footer">
+            <div id="footer-count" className="footer__count">{footerCountText}</div>
+            <div className="footer__filters" role="group" aria-label="Filter options">
               {filterList}
             </div>
-            <button onClick={(e) => setShowDeleteCompletedDialog(true)} className="header__clear" type="button">Delete completed</button>
+            <button onClick={() => setShowDeleteCompletedDialog(true)} className="footer__clear" type="button">Delete completed</button>
           </div>
         </div>
       </section>
