@@ -182,7 +182,7 @@ function App() {
       <section>
         <div className="container">
           <ul
-            className="mt-8"
+            className="my-8"
             aria-labelledby="toolbar-count"
           >
             {taskList}
@@ -190,7 +190,7 @@ function App() {
           {completeTaskCount > 0 &&
             <button
               onClick={() => setShowDeleteCompletedDialog(true)}
-              className="toolbar__delete my-8"
+              className="toolbar__delete mb-8"
               type="button"
             >
               Delete completed
