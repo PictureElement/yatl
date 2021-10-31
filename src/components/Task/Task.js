@@ -65,7 +65,6 @@ function Task(props) {
     <li className="todo-item fadeInUp">
       <div className="todo-item__group-left">
         <input
-          tooltip={`Mark as ${props.task.completed ? 'not' : ''} completed`} flow="right"
           className="todo-item__input-checkbox"
           id={props.task.id}
           type="checkbox"
