@@ -132,7 +132,7 @@ function App() {
 
   // Calculate active task count
   const activeTaskCount = tasks.filter(task => task.completed === false).length;
-  const footerCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
+  const toolbarCountText = `${activeTaskCount} ${activeTaskCount === 1 ? 'task' : 'tasks'} left`;
  
   return (
     <div className="App">
@@ -170,31 +170,28 @@ function App() {
       <Hero title='To do' />
 
       <NewTask onAddTask={handleAddTask} />
+
+      <section className="mt-4">
+        <div className="container">
+          <div className="toolbar">
+            <div id="toolbar-count" className="toolbar__count">{toolbarCountText}</div>
+            <Select setFilter={setFilter} />
+            {/* <button onClick={() => setShowDeleteCompletedDialog(true)} className="toolbar__delete" type="button">Delete completed</button> */}
+          </div>
+        </div>
+      </section>
       
-      <section className="mt-12">
+      <section className="my-8">
         <div className="container">
           <ul
             id="todo-items"
-            aria-labelledby="footer-count"
+            aria-labelledby="toolbar-count"
           >
             {taskList}
           </ul>
         </div>
       </section>
 
-      <section className="my-12">
-        <div className="container">
-          <div className="footer">
-            <div id="footer-count" className="footer__count">{footerCountText}</div>
-            <Select setFilter={setFilter} />
-            {/* <div className="footer__filters" role="group" aria-label="Filter options">
-              {filterList}
-            </div> */}
-            <button onClick={() => setShowDeleteCompletedDialog(true)} className="footer__delete" type="button">Delete completed</button>
-          </div>
-        </div>
-      </section>
-      
     </div>
   );
 }

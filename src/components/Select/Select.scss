@@ -13,6 +13,7 @@
   cursor: pointer;
   color: rgba(var(--on-background), 1);
   outline: none;
+  padding: 0 8px;
   &:hover {
     background-color: rgba(var(--on-background), var(--a30));
   }

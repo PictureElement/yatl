@@ -1,27 +1,11 @@
-.footer {
+.toolbar {
   border: 1px solid rgba(var(--on-background), var(--a15));
-  padding: 16px;
+  padding: 8px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (max-width: 767.98px) {
-    flex-direction: column;
-  }
   &__count {
     white-space: nowrap;
-  }
-  &__filters {
-    position: relative;
-    vertical-align: middle;
-    display: flex;
-    .filter-button {
-      margin: 0 4px;
-      position: relative;
-      flex: 1 1 auto;
-    }
-    @media (max-width: 767.98px) {
-      margin: 16px 0;
-    }
   }
   &__delete {
     font-family: 'Poppins', sans-serif;
