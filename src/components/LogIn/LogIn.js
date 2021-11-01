@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import Alert from '../Alert/Alert';
 
 function LogIn() {
   // Loading
@@ -8,6 +9,9 @@ function LogIn() {
 
   // Currently logged in user
   const [loggedUser, setLoggedUser] = useState({});
+
+  // Error
+  const [error, setError] = useState('');
 
   // Form inputs
   const emailInputEl = useRef();
@@ -32,7 +36,10 @@ function LogIn() {
   function handleSubmit(e) {
     e.preventDefault();
 
+    // Start loading (disable Log in button)
     setLoading(true);
+    // No error at the moment
+    setError('');
     
     // Log in
     signInWithEmailAndPassword(auth, emailInputEl.current.value, passwordInputEl.current.value)
@@ -44,18 +51,20 @@ function LogIn() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error(`${errorCode}: ${errorMessage}`);
+        // Set error message
+        setError(`${errorCode}: ${errorMessage}`);
+        // Stop loading
         setLoading(false);
       });
-
-    setLoading(false);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <img src="" alt="" width="72" height="57" />
-      <h1>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</h1>
+      <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
       <h1>Log In Form</h1>
+      {/* true && expression always evaluates to expression */}
+      {error && <Alert text={error} variant='danger' />}
       <div>
         <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
         <label htmlFor="emailInput">Email address</label>

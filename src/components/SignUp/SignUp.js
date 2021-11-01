@@ -36,9 +36,9 @@ function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // Start loading
+    // Start loading (disable Sign up button)
     setLoading(true);
-    // No error
+    // No error at the moment
     setError('');
 
     // Sign up
@@ -61,7 +61,7 @@ function SignUp() {
   return (
     <form onSubmit={handleSubmit}>
       <img src="" alt="" width="72" height="57" />
-      <h1>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</h1>
+      <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
       <h1>Sign Up Form</h1>
       {/* true && expression always evaluates to expression */}
       {error && <Alert text={error} variant='danger' />}
