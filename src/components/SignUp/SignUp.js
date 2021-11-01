@@ -11,7 +11,6 @@ function SignUp() {
   const passwordInputEl = useRef();
 
   function handleSubmit() {
-    alert('kadkadhna');
     setLoading(true);
 
     // Sign up
@@ -20,22 +19,19 @@ function SignUp() {
         // Signed in 
         const user = userCredential.user;
         // ...
-        console.log('User:');
-        console.log(user);
+        alert('hello');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error(`${errorCode}: ${errorMessage}`);
       });
-
-    setLoading(false);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <img src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
-      <h1>Current user: {user}</h1>
+      <h1>Current user: N/A</h1>
       <h1>Sign Up</h1>
       <div>
         <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />

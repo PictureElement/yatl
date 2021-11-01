@@ -37,7 +37,7 @@ function Tasks() {
     // Query with descending order by document "created" field
     const q = query(collection(db, "tasks"), orderBy("created", "desc"));
     // Realtime updates
-    onSnapshot(q, (querySnapshot) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const tasks = [];
       querySnapshot.forEach((doc) => {
         /**
@@ -57,6 +57,8 @@ function Tasks() {
       // Set 'tasks' state
       setTasks(tasks);
     });
+    // Detach listener when the component unmounts
+    return () => unsubscribe();
   }, []); // Array is empty, so the function passed will run only on first render.
 
   // Add document to Firestore
