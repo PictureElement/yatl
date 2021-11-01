@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
+import Alert from '../Alert/Alert';
 
 function SignUp() {
   // Loading state for disabling the Sign up button
@@ -62,6 +63,8 @@ function SignUp() {
       <img src="" alt="" width="72" height="57" />
       <h1>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</h1>
       <h1>Sign Up Form</h1>
+      {/* true && expression always evaluates to expression */}
+      {error && <Alert text={error} variant='danger' />}
       <div>
         <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
         <label htmlFor="emailInput">Email address</label>
@@ -75,4 +78,4 @@ function SignUp() {
   )
 }
 
-export default SignUp
+export default SignUp;
