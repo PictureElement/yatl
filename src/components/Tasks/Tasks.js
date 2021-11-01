@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Task from '../Task/Task'; // Task component
-import { db } from '../../firebase';
+import { db, auth } from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { signOut } from "firebase/auth";
 import Hero from '../Hero/Hero';
 import NewTask from '../NewTask/NewTask';
 import Dialog from '@mui/material/Dialog';
@@ -125,6 +126,15 @@ function Tasks() {
     });
   }
 
+  // Log Out
+  function handleLogOut() {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+
   // Array of <Task /> elements. You should always pass a unique key to anything you render with iteration.
   const taskList = tasks.filter(FILTER_MAP[filter]).map(task => <Task key={task.id} task={task} setTaskIdToDelete={setTaskIdToDelete} setShowDeleteDialog={setShowDeleteDialog} onUpdateStatus={handleUpdateStatus} onEditTask={handleEditTask} />);
 
@@ -198,6 +208,7 @@ function Tasks() {
               Delete completed
             </button>
           }
+          <button onClick={handleLogOut} type="button">Log out</button>
         </div>
       </section>
 
