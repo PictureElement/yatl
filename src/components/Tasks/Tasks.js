@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Task from '../Task/Task'; // Task component
 import { db, auth } from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import Hero from '../Hero/Hero';
+import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
 import Dialog from '@mui/material/Dialog';
 import Select from '../Select/Select';

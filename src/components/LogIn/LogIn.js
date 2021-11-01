@@ -27,7 +27,7 @@ function LogIn() {
     });
     // Detach listener when the component unmounts
     return () => unsubscribe();
-  }, []);
+  }, []); // [] Only run once
 
   function handleSubmit(e) {
     e.preventDefault();

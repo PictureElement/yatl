@@ -3,11 +3,14 @@ import { auth } from '../../firebase';
 import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 
 function SignUp() {
-  // Loading
+  // Loading state for disabling the Sign up button
   const [loading, setLoading] = useState(false);
 
   // Currently logged in user
   const [loggedUser, setLoggedUser] = useState({});
+
+  // Error
+  const [error, setError] = useState('');
 
   // Form inputs
   const emailInputEl = useRef();
@@ -32,7 +35,10 @@ function SignUp() {
   function handleSubmit(e) {
     e.preventDefault();
 
+    // Start loading
     setLoading(true);
+    // No error
+    setError('');
 
     // Sign up
     createUserWithEmailAndPassword(auth, emailInputEl.current.value, passwordInputEl.current.value)
@@ -44,7 +50,9 @@ function SignUp() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error(`${errorCode}: ${errorMessage}`);
+        // Set error message
+        setError(`${errorCode}: ${errorMessage}`);
+        // Stop loading
         setLoading(false);
       });
   }
