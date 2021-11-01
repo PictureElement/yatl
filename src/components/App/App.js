@@ -6,7 +6,8 @@ import {
   Switch
 } from "react-router-dom";
 import Tasks from '../Tasks/Tasks';
-import { signup, signin, signout } from '../../firebase';
+import SignUp from '../SignUp/SignUp';
+import LogIn from '../LogIn/LogIn';
 
 function App() {
   return (
@@ -15,7 +16,10 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Log In</Link>
+            </li>
+            <li>
+              <Link to="/signup">Sign Up</Link>
             </li>
             <li>
               <Link to="/tasks">Tasks</Link>
@@ -32,13 +36,15 @@ function App() {
         */}
         <Switch>
           <Route exact path="/">
-            <h1>Home</h1>
+            <LogIn />
           </Route>
-          <Route path="/tasks">
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+          <Route exact path="/tasks">
             <Tasks />
           </Route>
         </Switch>
-        
       </div>
     </Router>
   );

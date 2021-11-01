@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Task from '../Task/Task'; // Task component
-import db from '../../firebase';
+import { db } from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import Hero from '../Hero/Hero';
 import NewTask from '../NewTask/NewTask';
