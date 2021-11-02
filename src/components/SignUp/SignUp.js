@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 import Alert from '../Alert/Alert';
+import { Link } from "react-router-dom";
 
 function SignUp() {
   // By default we are loading. As soon as the we get the "user" (onAuthStateChanged) we set loading to false
@@ -60,23 +61,26 @@ function SignUp() {
   return (
     <div>
       {/* Render form if loading is false */}
-      {!loading && 
-        <form onSubmit={handleSubmit}>
-          <img src="" alt="" width="72" height="57" />
-          <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
-          <h1>Sign Up Form</h1>
-          {/* true && expression always evaluates to expression */}
-          {error && <Alert text={error} variant='danger' />}
-          <div>
-            <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
-            <label htmlFor="emailInput">Email address</label>
-          </div>
-          <div>
-            <input ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
-            <label htmlFor="passwordInput">Password</label>
-          </div>
-          <button disabled={loading} type="submit">Sign up</button>
-        </form>
+      {!loading &&
+        <div>
+          <form onSubmit={handleSubmit}>
+            <img src="" alt="" width="72" height="57" />
+            <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
+            <h1>Sign Up Form</h1>
+            {/* true && expression always evaluates to expression */}
+            {error && <Alert text={error} variant='danger' />}
+            <div>
+              <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
+              <label htmlFor="emailInput">Email address</label>
+            </div>
+            <div>
+              <input ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
+              <label htmlFor="passwordInput">Password</label>
+            </div>
+            <button disabled={loading} type="submit">Sign up</button>
+          </form>
+          <p>Already have an account? <Link to="/login">Log in</Link></p>
+        </div>
       }
     </div>
   )
