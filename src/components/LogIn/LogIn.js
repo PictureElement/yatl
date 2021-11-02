@@ -4,8 +4,8 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import Alert from '../Alert/Alert';
 
 function LogIn() {
-  // Loading
-  const [loading, setLoading] = useState(false);
+  // By default we are loading. As soon as the we get the "user" (onAuthStateChanged) we set loading to false
+  const [loading, setLoading] = useState(true);
 
   // Currently logged in user
   const [loggedUser, setLoggedUser] = useState({});
@@ -20,9 +20,9 @@ function LogIn() {
   // Get the currently signed-in user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setLoading(false);
       if (user) {
         setLoggedUser(user);
-        // const uid = user.uid;
         // ...
       } else {
         // User is signed out
@@ -59,22 +59,27 @@ function LogIn() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <img src="" alt="" width="72" height="57" />
-      <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
-      <h1>Log In Form</h1>
-      {/* true && expression always evaluates to expression */}
-      {error && <Alert text={error} variant='danger' />}
-      <div>
-        <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
-        <label htmlFor="emailInput">Email address</label>
-      </div>
-      <div>
-        <input ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
-        <label htmlFor="passwordInput">Password</label>
-      </div>
-      <button disabled={loading} type="submit">Log in</button>
-    </form>
+    <div>
+      {/* Render form if loading is false */}
+      {!loading && 
+        <form onSubmit={handleSubmit}>
+          <img src="" alt="" width="72" height="57" />
+          <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
+          <h1>Log In Form</h1>
+          {/* true && expression always evaluates to expression */}
+          {error && <Alert text={error} variant='danger' />}
+          <div>
+            <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
+            <label htmlFor="emailInput">Email address</label>
+          </div>
+          <div>
+            <input ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
+            <label htmlFor="passwordInput">Password</label>
+          </div>
+          <button disabled={loading} type="submit">Log in</button>
+        </form>
+      }
+    </div>
   );
 }
 
