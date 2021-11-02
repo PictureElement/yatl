@@ -9,6 +9,7 @@ import Dialog from '@mui/material/Dialog';
 import Select from '../Select/Select';
 import sound from '../../assets/complete.mp3';
 import './Tasks.scss';
+import { useHistory } from "react-router-dom";
 
 const FILTER_MAP = {
   All: () => true,
@@ -29,6 +30,9 @@ function Tasks() {
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
   // By default we are loading. As soon as we get "tasks" (onSnapshot()) we set loading to false
   const [loading, setLoading] = useState(true);
+
+  // The useHistory hook gives you access to the history instance that you may use to navigate.
+  let history = useHistory();
 
   /**
    * useEffect hook
@@ -133,6 +137,8 @@ function Tasks() {
   function handleLogOut() {
     signOut(auth).then(() => {
       // Sign-out successful.
+      // Navigate to login page
+      history.push("/login");
     }).catch((error) => {
       // An error happened.
     });
