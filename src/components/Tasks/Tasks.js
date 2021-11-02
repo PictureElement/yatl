@@ -30,7 +30,7 @@ function Tasks() {
   const [tasks, setTasks] = useState([]);
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
   // Currently logged in user
-  const [loggedUser, setLoggedUser] = useState({});
+  const [loggedUser, setLoggedUser] = useState(null);
   // By default there is no error
   const [error, setError] = useState('');
   // By default we are loading. As soon as we get "tasks" (onSnapshot()) we set loading to false
@@ -182,7 +182,7 @@ function Tasks() {
   return (
     <div className="Tasks">
       <div class="d-flex">
-        <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
+        <p>Logged in as: {loggedUser ? loggedUser.email : 'N/A'}</p>
         <button disabled={loading} onClick={handleLogOut} type="button">Log out</button>
       </div>
 

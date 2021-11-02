@@ -9,7 +9,7 @@ function SignUp() {
   const [loading, setLoading] = useState(true);
 
   // Currently logged in user
-  const [loggedUser, setLoggedUser] = useState({});
+  const [loggedUser, setLoggedUser] = useState(null);
 
   // Error
   const [error, setError] = useState('');
@@ -70,7 +70,7 @@ function SignUp() {
         <div>
           <form onSubmit={handleSubmit}>
             <img src="" alt="" width="72" height="57" />
-            <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
+            <p>Logged in as: {loggedUser ? loggedUser.email : 'N/A'}</p>
             <h1>Sign Up Form</h1>
             {/* true && expression always evaluates to expression */}
             {error && <Alert text={error} variant='danger' />}

@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Tasks from '../Tasks/Tasks';
 import SignUp from '../SignUp/SignUp';
 import LogIn from '../LogIn/LogIn';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -20,15 +17,9 @@ function App() {
           of them to render at a time
         */}
         <Switch>
-          <Route path="/login">
-            <LogIn />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route exact path="/">
-            <Tasks />
-          </Route>
+          <Route path="/login" component={LogIn} />
+          <Route path="/signup" component={SignUp} />
+          <PrivateRoute exact path="/" component={Tasks} />
         </Switch>
       </div>
     </Router>
