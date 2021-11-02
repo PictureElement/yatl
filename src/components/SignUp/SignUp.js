@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth";
 import Alert from '../Alert/Alert';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function SignUp() {
   // By default we are loading. As soon as the we get the "user" (onAuthStateChanged) we set loading to false
@@ -17,6 +17,9 @@ function SignUp() {
   // Form inputs
   const emailInputEl = useRef();
   const passwordInputEl = useRef();
+
+  // The useHistory hook gives you access to the history instance that you may use to navigate.
+  let history = useHistory();
 
   // Get the currently signed-in user
   useEffect(() => {
@@ -47,6 +50,8 @@ function SignUp() {
         // Signed in 
         const user = userCredential.user;
         console.log(user);
+        // Navigate to dashboard
+        history.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
