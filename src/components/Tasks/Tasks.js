@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db, auth } from '../../firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Hero from '../Hero/Hero';
 import Task from '../Task/Task';
 import NewTask from '../NewTask/NewTask';
@@ -29,11 +29,13 @@ function Tasks() {
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
+  // Currently logged in user
+  const [loggedUser, setLoggedUser] = useState({});
   // By default there is no error
   const [error, setError] = useState('');
   // By default we are loading. As soon as we get "tasks" (onSnapshot()) we set loading to false
   const [loading, setLoading] = useState(true);
-
+  
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   let history = useHistory();
 
@@ -44,30 +46,40 @@ function Tasks() {
    * ... you can tell React to skip applying an effect if certain values haven’t changed between re-renders by passing an array as an optional second argument to useEffect.
    */
   useEffect(() => {
-    // Query with descending order by document "created" field
-    const q = query(collection(db, "tasks"), orderBy("created", "desc"));
-    // Realtime updates
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const tasks = [];
-      querySnapshot.forEach((doc) => {
-        /**
-         * 'tasks' is an array of objects
-         * each object structure is:
-         * { id: '', title: '', completed: ''}
-         */
-        tasks.push({
-          id: doc.id,
-          /**
-           * Spread operator: pass all key:value pairs from doc.data() object
-           * (e.g. title: 'Haircut', completed: 'true')
-           */
-          ...doc.data()
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+
+      // User is signed in
+      if (user) {
+        setLoggedUser(user);
+
+        // Query with descending order by document "created" field
+        const q = query(collection(db, "tasks"), orderBy("created", "desc"));
+
+        onSnapshot(q, (querySnapshot) => {
+          const tasks = [];
+          querySnapshot.forEach((doc) => {
+            /**
+             * 'tasks' is an array of objects
+             * each object structure is:
+             * { id: '', title: '', completed: ''}
+             */
+            tasks.push({
+              id: doc.id,
+              /**
+               * Spread operator: pass all key:value pairs from doc.data() object
+               * (e.g. title: 'Haircut', completed: 'true')
+               */
+              ...doc.data()
+            });
+          });
+          // Set 'tasks' state
+          setTasks(tasks);
+          setLoading(false);
         });
-      });
-      setLoading(false);
-      // Set 'tasks' state
-      setTasks(tasks);
+      }
     });
+
     // Detach listener when the component unmounts
     return () => unsubscribe();
   }, []); // Array is empty, so the function passed will run only on first render.
@@ -138,6 +150,8 @@ function Tasks() {
 
   // Log Out
   function handleLogOut() {
+    // Start loading (disable Log out button)
+    setLoading(true);
     // No error at the moment
     setError('');
     signOut(auth).then(() => {
@@ -150,6 +164,8 @@ function Tasks() {
       const errorMessage = error.message;
       // Set error message
       setError(`${errorCode}: ${errorMessage}`);
+      // Stop loading
+      setLoading(false);
     });
   }
 
@@ -165,6 +181,10 @@ function Tasks() {
   
   return (
     <div className="Tasks">
+      <div class="d-flex">
+        <p>Logged in as: {loggedUser.email ? loggedUser.email : 'N/A'}</p>
+        <button disabled={loading} onClick={handleLogOut} type="button">Log out</button>
+      </div>
 
       <Dialog
         className="dialog"
@@ -229,7 +249,6 @@ function Tasks() {
               Delete completed
             </button>
           }
-          <button onClick={handleLogOut} type="button">Log out</button>
         </div>
       </section>
 
