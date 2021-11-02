@@ -10,6 +10,7 @@ import Select from '../Select/Select';
 import sound from '../../assets/complete.mp3';
 import './Tasks.scss';
 import { useHistory } from "react-router-dom";
+import Alert from '../Alert/Alert';
 
 const FILTER_MAP = {
   All: () => true,
@@ -28,6 +29,8 @@ function Tasks() {
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
+  // By default there is no error
+  const [error, setError] = useState('');
   // By default we are loading. As soon as we get "tasks" (onSnapshot()) we set loading to false
   const [loading, setLoading] = useState(true);
 
@@ -135,12 +138,18 @@ function Tasks() {
 
   // Log Out
   function handleLogOut() {
+    // No error at the moment
+    setError('');
     signOut(auth).then(() => {
       // Sign-out successful.
       // Navigate to login page
       history.push("/login");
     }).catch((error) => {
       // An error happened.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // Set error message
+      setError(`${errorCode}: ${errorMessage}`);
     });
   }
 
@@ -190,6 +199,9 @@ function Tasks() {
       <Hero title='To do' />
 
       <NewTask onAddTask={handleAddTask} />
+
+      {/* true && expression always evaluates to expression */}
+      {error && <Alert text={error} variant='danger' />}
 
       <section className="mt-8">
         <div className="container">
