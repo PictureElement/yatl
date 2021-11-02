@@ -27,6 +27,8 @@ function Tasks() {
   const [filter, setFilter] = useState('All');
   const [tasks, setTasks] = useState([]);
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
+  // By default we are loading. As soon as we get the tasks from Firestore (useEffect()) we set the loading to false
+  const [loading, setLoading] = useState(true);
 
   /**
    * useEffect hook
@@ -55,6 +57,7 @@ function Tasks() {
           ...doc.data()
         });
       });
+      setLoading(false);
       // Set 'tasks' state
       setTasks(tasks);
     });
