@@ -74,3 +74,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 1. Checkmark synchronization issues.
 2. Replace alerts with MUI snackbars
 3. Use React Context to pass data related to authentication through the component tree and keeps things DRY.
+4. Implement a route to reset your password and a route to update profile (email and password)
