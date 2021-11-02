@@ -72,3 +72,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ## Todo
 
 1. Checkmark synchronization issues.
+2. Replace alerts with MUI snackbars
