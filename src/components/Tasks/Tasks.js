@@ -183,11 +183,6 @@ function Tasks() {
   
   return (
     <div className="Tasks">
-      <div className="d-flex">
-        <p>Logged in as: {loggedUser ? loggedUser.email : 'N/A'}</p>
-        <button disabled={loading} onClick={handleLogOut} type="button">Log out</button>
-      </div>
-
       <Dialog
         className="dialog"
         open={showDeleteCompletedDialog}
@@ -218,7 +213,7 @@ function Tasks() {
         </div>
       </Dialog>
       
-      <Hero title='My tasks' />
+      <Hero title='My tasks' loading={loading} onLogOut={handleLogOut} />
 
       <NewTask onAddTask={handleAddTask} />
 

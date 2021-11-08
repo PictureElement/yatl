@@ -5,4 +5,26 @@
     color: rgba(var(--on-primary), 1);
     margin-bottom: 0;
   }
+  &__logout-button {
+    margin-left: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--on-primary), var(--a15));
+    border: 2px solid transparent;
+    &:hover {
+      background-color: rgba(var(--on-primary), var(--a30));
+    }
+    &:active {
+      background-color: rgba(var(--on-primary), var(--a45));
+    }
+  }
+  &__logout-icon {
+    fill: rgba(var(--on-primary), 1);
+  }
 }
