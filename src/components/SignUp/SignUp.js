@@ -61,7 +61,7 @@ function SignUp() {
         </div>
         <button className="form-user__submit" disabled={loading} type="submit">Sign up</button>
       </form>
-      <p>Already have an account? <Link to="/login">Log in</Link></p>
+      <p>Already have an account? <Link className="form-user__link" to="/login">Log in</Link></p>
     </div>
   )
 }

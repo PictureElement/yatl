@@ -62,7 +62,7 @@ function LogIn() {
         </div>
         <button className="form-user__submit" disabled={loading} type="submit">Log in</button>
       </form>
-      <p>Don't have an account yet? <Link to="/signup">Sign up</Link></p>
+      <p>Don't have an account yet? <Link className="form-user__link" to="/signup">Sign up</Link></p>
     </div>
   );
 }

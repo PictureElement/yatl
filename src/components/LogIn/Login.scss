@@ -53,4 +53,10 @@
       background-color: rgba(var(--primary), var(--a45));
     }
   }
+  &__link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
