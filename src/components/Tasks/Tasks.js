@@ -218,7 +218,7 @@ function Tasks() {
         </div>
       </Dialog>
       
-      <Hero title='To do' />
+      <Hero title='My tasks' />
 
       <NewTask onAddTask={handleAddTask} />
 

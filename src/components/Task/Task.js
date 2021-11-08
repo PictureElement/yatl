@@ -99,6 +99,7 @@ function Task(props) {
             New title for {props.task.title}
           </label>
           <input
+            enterkeyhint="done"
             autoFocus
             className="todo-item__input-text mr-2"
             id={props.task.id}
