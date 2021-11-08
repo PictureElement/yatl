@@ -3,6 +3,8 @@ import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Alert from '../Alert/Alert';
 import { Link, useHistory } from "react-router-dom";
+import './Login.scss'
+import logo from '../../assets/logo.svg';
 
 function LogIn() {
   // By default we are not loading
@@ -44,21 +46,21 @@ function LogIn() {
   }
 
   return (
-    <div>
+    <div className="form-user">
       <form onSubmit={handleSubmit}>
-        <img src="" alt="" width="72" height="57" />
-        <h1>Log In Form</h1>
+        <img className="form-user__brand" src={logo} alt="YATL logo" width="100" height="100" />
+        <h1 className="form-user__title h4">Log in</h1>
         {/* true && expression always evaluates to expression */}
         {error && <Alert text={error} variant='danger' />}
         <div>
-          <input ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
-          <label htmlFor="emailInput">Email address</label>
+          <label className="visually-hidden" htmlFor="emailInput">Email address</label>
+          <input className="form-user__input" ref={emailInputEl} required type="email" id="emailInput" placeholder="name@example.com" />
         </div>
         <div>
-          <input ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
-          <label htmlFor="passwordInput">Password</label>
+          <label className="visually-hidden" htmlFor="passwordInput">Password</label>
+          <input className="form-user__input" ref={passwordInputEl} required type="password" id="passwordInput" placeholder="Password" />
         </div>
-        <button disabled={loading} type="submit">Log in</button>
+        <button className="form-user__submit" disabled={loading} type="submit">Log in</button>
       </form>
       <p>Don't have an account yet? <Link to="/signup">Sign up</Link></p>
     </div>
