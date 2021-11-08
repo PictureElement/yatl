@@ -33,8 +33,8 @@ function Tasks() {
   const [loggedUser, setLoggedUser] = useState(null);
   // By default there is no error
   const [error, setError] = useState('');
-  // By default we are loading. As soon as we get "tasks" (onSnapshot()) we set loading to false
-  const [loading, setLoading] = useState(true);
+  // By default we are not loading.
+  const [loading, setLoading] = useState(false);
   
   // The useHistory hook gives you access to the history instance that you may use to navigate.
   let history = useHistory();
@@ -47,47 +47,49 @@ function Tasks() {
    */
   useEffect(() => {
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    let unsubscribeOuter, unsubscribeInner;
 
-      // User is signed in
-      if (user) {
-        setLoggedUser(user);
+    unsubscribeOuter = onAuthStateChanged(auth, (user) => {
+      setLoggedUser(user);
+      
+      // console.log(user.uid);
 
-        // Query with descending order by document "created" field
-        const q = query(collection(db, "tasks"), orderBy("created", "desc"));
-
-        onSnapshot(q, (querySnapshot) => {
-          const tasks = [];
-          querySnapshot.forEach((doc) => {
+      // Query with descending order by document "created" field
+      const q = query(collection(db, user.uid), orderBy("created", "desc"));
+      
+      unsubscribeInner = onSnapshot(q, (querySnapshot) => {
+        const tasks = [];
+        querySnapshot.forEach((doc) => {
+          /**
+           * 'tasks' is an array of objects
+           * each object structure is:
+           * { id: '', title: '', completed: ''}
+           */
+          tasks.push({
+            id: doc.id,
             /**
-             * 'tasks' is an array of objects
-             * each object structure is:
-             * { id: '', title: '', completed: ''}
+             * Spread operator: pass all key:value pairs from doc.data() object
+             * (e.g. title: 'Haircut', completed: 'true')
              */
-            tasks.push({
-              id: doc.id,
-              /**
-               * Spread operator: pass all key:value pairs from doc.data() object
-               * (e.g. title: 'Haircut', completed: 'true')
-               */
-              ...doc.data()
-            });
+            ...doc.data()
           });
-          // Set 'tasks' state
-          setTasks(tasks);
-          setLoading(false);
         });
-      }
+        // Set 'tasks' state
+        setTasks(tasks);
+      });
     });
-
-    // Detach listener when the component unmounts
-    return () => unsubscribe();
+    
+    // Detach listeners when the component unmounts
+    return () => {
+      unsubscribeInner();
+      unsubscribeOuter();
+    }
   }, []); // Array is empty, so the function passed will run only on first render.
 
   // Add document to Firestore
   const handleAddTask = async (title) => {
-    // Add a new document with a generated id.
-    await addDoc(collection(db, "tasks"), {
+    // Add a new document with a generated id (uid is collection)
+    await addDoc(collection(db, loggedUser.uid), {
       completed: false,
       created: Timestamp.now(),
       title: title
@@ -96,7 +98,7 @@ function Tasks() {
 
   // Delete document from Firestore
   const deleteTask = async (id) => {
-    await deleteDoc(doc(db, "tasks", id));
+    await deleteDoc(doc(db, loggedUser.uid, id));
   }
 
   // Delete all completed tasks
@@ -116,7 +118,7 @@ function Tasks() {
 
   // Edit task title
   const handleEditTask = async (id, title) => {
-    const taskRef = doc(db, 'tasks', id);
+    const taskRef = doc(db, loggedUser.uid, id);
 
     // Update task title
     await updateDoc(taskRef, {
@@ -132,7 +134,7 @@ function Tasks() {
 
   // Update task status
   const handleUpdateStatus = async (id) => {
-    const taskRef = doc(db, 'tasks', id);
+    const taskRef = doc(db, loggedUser.uid, id);
 
     // Find task
     const task = tasks.find(task => task.id === id);
@@ -181,7 +183,7 @@ function Tasks() {
   
   return (
     <div className="Tasks">
-      <div class="d-flex">
+      <div className="d-flex">
         <p>Logged in as: {loggedUser ? loggedUser.email : 'N/A'}</p>
         <button disabled={loading} onClick={handleLogOut} type="button">Log out</button>
       </div>
