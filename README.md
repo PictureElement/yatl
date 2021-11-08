@@ -78,3 +78,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 5. Add theme toggle to login and signup routes.
 6. Choose an accessible color scheme.
 7. Configure Firestore security rules.
+8. Add confirmation alert on sign out.
+9. Configure meta tags and manifest colors.
