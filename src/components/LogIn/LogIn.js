@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
-// import Alert from '../Alert/Alert';
 import { Link, useHistory } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
 import logo from '../../assets/logo.svg';
@@ -93,7 +92,7 @@ function LogIn() {
   }, [inputErrors, history]); // Only re-run the effect if "inputErrors" changes
 
   function handleSubmit(e) {
-    // Cancel default action during submission
+    // Cancel default action on form submission
     e.preventDefault();
 
     // Set input errors.
