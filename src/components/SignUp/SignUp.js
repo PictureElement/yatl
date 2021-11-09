@@ -3,7 +3,6 @@ import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Alert from '../Alert/Alert';
 import { Link, useHistory } from "react-router-dom";
-import './SignUp.scss'
 import logo from '../../assets/logo.svg';
 
 function SignUp() {

@@ -72,7 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ## Todo
 
 1. Checkmark synchronization issues.
-2. Replace alerts with MUI snackbars.
+2. Replace alerts.
 3. Use React Context to pass data related to authentication through the component tree and keeps things DRY.
 4. Implement a route to reset your password and a route to update profile (email and password).
 5. Add theme toggle to login and signup routes.
@@ -80,3 +80,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 7. Configure Firestore security rules.
 8. Add confirmation alert on sign out.
 9. Configure meta tags and manifest colors.
+10. Remove ids
+11. Form validation
