@@ -48,7 +48,8 @@ function SignUp() {
     <div className="form-user">
       <form onSubmit={handleSubmit}>
         <img className="form-user__brand" src={logo} alt="YATL logo" width="100" height="100" />
-        <h1 className="form-user__title h4">Sign up</h1>
+        <h1 className="form-user__title h5">Sign up</h1>
+        <p className="form-user__subtitle">Create your YATL account</p>
         {/* true && expression always evaluates to expression */}
         {error && <Alert text={error} variant='danger' />}
         <div>
