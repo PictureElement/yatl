@@ -212,7 +212,7 @@ function Tasks() {
           <button className="dialog__button dialog__button_negative" onClick={handleDeleteClick}>Delete</button>
         </div>
       </Dialog>
-      
+
       <Hero title='My tasks' loading={loading} onLogOut={handleLogOut} />
 
       <NewTask onAddTask={handleAddTask} />
