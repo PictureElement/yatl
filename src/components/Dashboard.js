@@ -6,11 +6,11 @@ import Hero from './Hero';
 import Task from './Task';
 import NewTask from './NewTask';
 import Dialog from '@mui/material/Dialog';
+import Snackbar from '@mui/material/Snackbar';
 import Select from './Select';
 import sound from '../assets/complete.mp3';
 import './Dashboard.scss';
 import { useHistory } from "react-router-dom";
-import Alert from './Alert';
 
 const FILTER_MAP = {
   All: () => true,
@@ -31,8 +31,8 @@ function Tasks() {
   const [taskIdToDelete, setTaskIdToDelete] = useState('');
   // Currently logged in user
   const [loggedUser, setLoggedUser] = useState(null);
-  // By default there is no error
-  const [error, setError] = useState('');
+  // Server error
+  const [serverError, setServerError] = useState('');
   // By default we are not loading.
   const [loading, setLoading] = useState(false);
   
@@ -155,7 +155,7 @@ function Tasks() {
     // Start loading (disable Log out button)
     setLoading(true);
     // No error at the moment
-    setError('');
+    setServerError('');
     signOut(auth).then(() => {
       // Sign-out successful.
       // Navigate to login page
@@ -163,9 +163,15 @@ function Tasks() {
     }).catch((error) => {
       // An error happened.
       const errorCode = error.code;
-      const errorMessage = error.message;
+      let errorMessage;
+
+      switch (errorCode) {
+        default:
+          errorMessage = 'Sorry, something went wrong. Try again.';
+      }
+
       // Set error message
-      setError(`${errorCode}: ${errorMessage}`);
+      setServerError(errorMessage);
       // Stop loading
       setLoading(false);
     });
@@ -217,9 +223,6 @@ function Tasks() {
 
       <NewTask onAddTask={handleAddTask} />
 
-      {/* true && expression always evaluates to expression */}
-      {error && <Alert text={error} variant='danger' />}
-
       <section className="mt-8">
         <div className="container">
           <div className="toolbar">
@@ -248,7 +251,8 @@ function Tasks() {
           }
         </div>
       </section>
-
+      
+      {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={() => setServerError('')} message={serverError} />}
     </div>
   );
 }

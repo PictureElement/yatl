@@ -22,7 +22,7 @@ function LogIn() {
     password: ''
   });
 
-  // Error
+  // Server error
   const [serverError, setServerError] = useState('');
 
   // Form inputs
