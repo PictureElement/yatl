@@ -45,6 +45,11 @@ function LogIn() {
     setServerError('');
   };
 
+  // Login component is always in light mode. Runs on first render only.
+  useEffect(() => {
+    document.documentElement.classList.remove('theme-dark');
+  }, []);
+
   useEffect(() => {
     // If there are no errors, initiate communication with Firebase
     if (Object.keys(inputErrors).length === 0) {
