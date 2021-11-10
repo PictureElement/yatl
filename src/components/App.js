@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from '../Dashboard/Dashboard';
-import SignUp from '../SignUp/SignUp';
-import LogIn from '../LogIn/LogIn';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import Dashboard from './Dashboard';
+import SignUp from './SignUp';
+import LogIn from './LogIn';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
   return (

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { db, auth } from '../../firebase';
+import { db, auth } from '../api/firebase';
 import { collection, query, orderBy, addDoc, Timestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import Hero from '../Hero/Hero';
-import Task from '../Task/Task';
-import NewTask from '../NewTask/NewTask';
+import Hero from './Hero';
+import Task from './Task';
+import NewTask from './NewTask';
 import Dialog from '@mui/material/Dialog';
-import Select from '../Select/Select';
-import sound from '../../assets/complete.mp3';
+import Select from './Select';
+import sound from '../assets/complete.mp3';
 import './Dashboard.scss';
 import { useHistory } from "react-router-dom";
-import Alert from '../Alert/Alert';
+import Alert from './Alert';
 
 const FILTER_MAP = {
   All: () => true,

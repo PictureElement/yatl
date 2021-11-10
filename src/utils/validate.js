@@ -1,3 +1,8 @@
+/**
+ * Validate simple email and password forms
+ * @param values - { email: string, password: string }
+ * @returns errors - { email: string, password: string }
+ */
 export default function validate(values) {
   let errors = {};
 

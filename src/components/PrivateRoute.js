@@ -1,7 +1,7 @@
 // This is a wrapper for <Route> components
 
 import React, { useState, useEffect } from 'react';
-import { auth } from '../../firebase';
+import { auth } from '../api/firebase';
 import { Route, Redirect } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 

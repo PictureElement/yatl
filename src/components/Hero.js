@@ -1,4 +1,4 @@
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from './ThemeToggle';
 import './Hero.scss';
 
 function Hero(props) {

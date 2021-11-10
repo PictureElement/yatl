@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { auth } from '../../firebase';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../api/firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useHistory } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
-import logo from '../../assets/logo.svg';
-import validate from '../../validate';
+import logo from '../assets/logo.svg';
+import validate from '../utils/validate';
 
-function LogIn() {
-  // By default we are not loading
+function SignUp() {
+  // By default we are not loading.
   const [loading, setLoading] = useState(false);
 
   // Input values
@@ -48,43 +48,22 @@ function LogIn() {
   useEffect(() => {
     // If there are no errors, initiate communication with Firebase
     if (Object.keys(inputErrors).length === 0) {
-
-      // Start loading (disable Log in button)
+      // Start loading (disable Sign up button)
       setLoading(true);
-
-      // No server error at the moment
+      // No error at the moment
       setServerError('');
-      
-      // Log in
-      signInWithEmailAndPassword(auth, emailInputEl.current.value, passwordInputEl.current.value)
+
+      // Sign up
+      createUserWithEmailAndPassword(auth, emailInputEl.current.value, passwordInputEl.current.value)
         .then((userCredential) => {
           // Signed in 
-          // Navigate to dashboard
           history.push("/");
         })
         .catch((error) => {
           const errorCode = error.code;
-          let errorMessage;
-          
-          switch (errorCode) {
-            case 'auth/user-not-found':
-              errorMessage = "Couldn't find your YATL account.";
-              break;
-            case 'auth/wrong-password':
-              errorMessage = 'Wrong password. Try again.';
-              break;
-            case 'auth/too-many-requests':
-              errorMessage = 'Too many failed login attempts. Try again later.';
-              break;
-            case 'auth/user-disabled':
-              errorMessage = 'Your YATL account is disabled.';
-              break;
-            default:
-              errorMessage = 'Sorry, something went wrong. Try again.';
-          }
-
+          const errorMessage = error.message;
           // Set error message
-          setServerError(errorMessage);
+          setServerError(`${errorCode}: ${errorMessage}`);
           // Stop loading
           setLoading(false);
         });
@@ -105,8 +84,8 @@ function LogIn() {
       <div className="form-user">
         <form noValidate onSubmit={handleSubmit}>
           <img className="form-user__brand" src={logo} alt="YATL logo" width="100" height="100" />
-          <h1 className="form-user__title h5">Log in</h1>
-          <p className="form-user__subtitle">Use your YATL account</p>
+          <h1 className="form-user__title h5">Sign up</h1>
+          <p className="form-user__subtitle">Create your YATL account</p>
           <div className="mb-4">
             <label className="visually-hidden" htmlFor="email">Email address</label>
             <input value={inputValues.email} onChange={handleChange} className="form-user__input" ref={emailInputEl} type="email" name="email" id="email" placeholder="name@example.com" />
@@ -114,16 +93,16 @@ function LogIn() {
           </div>
           <div className="mb-4">
             <label className="visually-hidden" htmlFor="password">Password</label>
-            <input value={inputValues.password} onChange={handleChange} className="form-user__input" ref={passwordInputEl} type="password" name="password" id="password" placeholder="Password" />
+            <input value={inputValues.password} onChange={handleChange} className="form-user__input" ref={passwordInputEl} required type="password" name="password" id="password" placeholder="Password" />
             {inputErrors.password && <div className="form-user__feedback">{inputErrors.password}</div>}
           </div>
-          <button className="form-user__submit" disabled={loading} type="submit">Log in</button>
+          <button className="form-user__submit" disabled={loading} type="submit">Sign up</button>
         </form>
-        <p>Don't have an account yet? <Link className="form-user__link" to="/signup">Sign up</Link></p>
+        <p>Already have an account? <Link className="form-user__link" to="/login">Log in</Link></p>
       </div>
       {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={handleClose} message={serverError} />}
     </div>
-  );
+  )
 }
 
-export default LogIn;
+export default SignUp;
