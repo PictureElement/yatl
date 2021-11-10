@@ -150,6 +150,7 @@ button[tooltip] {
     }
   }
   &__link {
+    color: rgba(var(--primary), 1);
     text-decoration: none;
     &:hover {
       text-decoration: underline;
