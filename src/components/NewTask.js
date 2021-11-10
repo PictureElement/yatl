@@ -22,6 +22,7 @@ function NewTask(props) {
         <form onSubmit={handleSubmit}>
           <label htmlFor="task-input" className="visually-hidden">Add a task</label>
           <input
+            autoFocus
             enterKeyHint="done"
             onChange={(e) => setTitle(e.target.value)}
             value={title}

@@ -83,7 +83,7 @@ function SignUp() {
           <p className="form-user__subtitle">Create your YATL account</p>
           <div className="mb-4">
             <label className="visually-hidden" htmlFor="email">Email address</label>
-            <input value={inputValues.email} onChange={handleChange} className="form-user__input" ref={emailInputEl} type="email" name="email" id="email" placeholder="name@example.com" />
+            <input autoFocus value={inputValues.email} onChange={handleChange} className="form-user__input" ref={emailInputEl} type="email" name="email" id="email" placeholder="name@example.com" />
             {inputErrors.email && <div className="form-user__feedback">{inputErrors.email}</div>}
           </div>
           <div className="mb-4">
