@@ -40,11 +40,6 @@ function LogIn() {
     setInputValues({...inputValues, [name]: value});
   };
 
-  // Reset server error
-  const handleClose = (event) => {
-    setServerError('');
-  };
-
   // Login component is always in light mode. Runs on first render only.
   useEffect(() => {
     document.documentElement.classList.remove('theme-dark');
@@ -126,7 +121,7 @@ function LogIn() {
         </form>
         <p>Don't have an account yet? <Link className="form-user__link" to="/signup">Sign up</Link></p>
       </div>
-      {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={handleClose} message={serverError} />}
+      {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={() => setServerError('')} message={serverError} />}
     </div>
   );
 }

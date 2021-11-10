@@ -40,11 +40,6 @@ function SignUp() {
     setInputValues({...inputValues, [name]: value});
   };
 
-  // Reset server error
-  const handleClose = (event) => {
-    setServerError('');
-  };
-
   useEffect(() => {
     // If there are no errors, initiate communication with Firebase
     if (Object.keys(inputErrors).length === 0) {
@@ -100,7 +95,7 @@ function SignUp() {
         </form>
         <p>Already have an account? <Link className="form-user__link" to="/login">Log in</Link></p>
       </div>
-      {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={handleClose} message={serverError} />}
+      {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={() => setServerError('')} message={serverError} />}
     </div>
   )
 }
