@@ -8,7 +8,7 @@ import NewTask from '../NewTask/NewTask';
 import Dialog from '@mui/material/Dialog';
 import Select from '../Select/Select';
 import sound from '../../assets/complete.mp3';
-import './Tasks.scss';
+import './Dashboard.scss';
 import { useHistory } from "react-router-dom";
 import Alert from '../Alert/Alert';
 
