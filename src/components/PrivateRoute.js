@@ -26,7 +26,7 @@ function PrivateRoute({ component: Component, ...theProps }) {
       {!loading
         ? (loggedUser === null)
             ? <Route {...theProps} render={() => <Redirect to="/login" />} />
-            : <Route {...theProps} render={() => <Component />} />
+            : <Route {...theProps} render={() => <Component user={loggedUser} />} />
         : (null)
       }
     </div>

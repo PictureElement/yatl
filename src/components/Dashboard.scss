@@ -98,3 +98,34 @@
     }
   }
 }
+
+.verification {
+  width: 100%;
+  padding: 60px 0;
+  &__paragraph {
+    margin-bottom: 1rem;
+  }
+  &__button {
+    display: inline-block;
+    background: none;
+    font-size: 1rem;
+    color: rgba(var(--primary), 1);
+    text-decoration: none;
+    padding: 0;
+    border: 2px solid transparent;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  &__title {
+    margin-bottom: 1rem;
+  }
+  &__microcopy {
+    margin-bottom: 0;
+  }
+  hr {
+    border-color: rgba(var(--on-background), .12);
+    margin: 1rem 0;
+  }
+}
