@@ -7,6 +7,8 @@ import Task from './Task';
 import NewTask from './NewTask';
 import Dialog from '@mui/material/Dialog';
 import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import Select from './Select';
 import sound from '../assets/complete.mp3';
 import './Dashboard.scss';
@@ -242,6 +244,13 @@ function Tasks(props) {
                     <button className="dialog__button dialog__button_negative" onClick={handleDeleteClick}>Delete</button>
                   </div>
                 </Dialog>
+
+                {props.user.email === 'mofajo7864@unigeol.com' &&
+                  <Alert className="alert" severity="error">
+                    <AlertTitle className="alert__title">Demo account</AlertTitle>
+                    This is a shared demo area, so be aware there could be other people logged in at the same time as you.
+                  </Alert>
+                }
 
                 <Hero title='My tasks' loading={loading} onLogOut={handleLogOut} />
 

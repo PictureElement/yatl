@@ -81,7 +81,9 @@ input {
 }
 
 button {
+  font-family: 'Poppins', sans-serif;
   outline: none;
+  border: 2px solid transparent !important;
   &:focus {
     border: 2px solid rgba(3, 206, 164, .75) !important;
   }
@@ -91,9 +93,18 @@ button[tooltip] {
   font-family: 'Poppins', sans-serif;
 }
 
+a {
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  border: 2px solid transparent !important;
+  &:focus {
+    border: 2px solid rgba(3, 206, 164, .75) !important;
+  }
+}
+
 .form-user {
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -159,5 +170,13 @@ button[tooltip] {
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+.alert {
+  border-radius: 0 !important;
+  font-family: 'Poppins', sans-serif !important;
+  &__title {
+    font-family: 'Poppins', sans-serif !important;
   }
 }

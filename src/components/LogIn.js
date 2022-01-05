@@ -3,6 +3,8 @@ import { auth } from '../api/firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useHistory } from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import logo from '../assets/logo.svg';
 import validate from '../utils/validate';
 
@@ -24,6 +26,9 @@ function LogIn() {
 
   // Server error
   const [serverError, setServerError] = useState('');
+
+  // Demo alert
+  const [showDemoAlert, setShowDemoAlert] = useState(true);
 
   // Form inputs
   const emailInputEl = useRef();
@@ -120,6 +125,12 @@ function LogIn() {
           <button className="form-user__submit" disabled={loading} type="submit">Log in</button>
         </form>
         <p>Don't have an account yet? <Link className="form-user__link" to="/signup">Sign up</Link></p>
+        {showDemoAlert &&
+          <Alert className="alert" onClose={() => {setShowDemoAlert(false)}} severity="info" style={{textAlign: 'left', marginTop: '1rem'}}>
+            <AlertTitle className="alert__title">Demo account</AlertTitle>
+            Email: mofajo7864@unigeol.com<br />Password: 123456
+          </Alert>
+        }
       </div>
       {serverError && <Snackbar open={true} autoHideDuration={4000} onClose={() => setServerError('')} message={serverError} />}
     </div>

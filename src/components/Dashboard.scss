@@ -33,9 +33,11 @@
 }
 
 .Mui {
-  &Paper-root {
-    background-color: rgba(var(--on-background), 1) !important;
-    border-radius: 0 !important;
+  &Dialog-container {
+    .MuiPaper-root {
+      background-color: rgba(var(--on-background), 1) !important;
+      border-radius: 0 !important;
+    }
   }
 }
 
@@ -106,13 +108,15 @@
     margin-bottom: 1rem;
   }
   &__button {
-    display: inline-block;
+    line-height: 1.5;
+    outline: none;
+    display: inline;
+    box-sizing:content-box;
     background: none;
     font-size: 1rem;
     color: rgba(var(--primary), 1);
     text-decoration: none;
-    padding: 0;
-    border: 2px solid transparent;
+    padding: 0 !important;
     &:hover {
       cursor: pointer;
       text-decoration: underline;
@@ -123,6 +127,7 @@
   }
   &__microcopy {
     margin-bottom: 0;
+    line-height: 1.5;
   }
   hr {
     border-color: rgba(var(--on-background), .12);
